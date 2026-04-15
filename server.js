@@ -4,7 +4,7 @@ const path    = require('path');
 
 const app      = express();
 const PORT     = process.env.PORT || 3000;
-const DATA_FILE = path.join(__dirname, 'data.json');
+const DATA_FILE = process.env.DATA_PATH || path.join(__dirname, 'data.json');
 
 // ── init data file ──────────────────────────────────────────────────────────
 function readData() {
