@@ -1,189 +1,179 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Pro — מנופאים | משימות ופתקים</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Pro — מנופאים</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; min-height: 100vh; direction: rtl; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;min-height:100vh;direction:rtl}
 
-    /* ── LOGIN ── */
-    #login-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; background:linear-gradient(150deg,#1a3a7a 0%,#1e5c1e 100%); }
-    .login-box { background:white; border-radius:20px; padding:44px 60px 50px; text-align:center; box-shadow:0 24px 64px rgba(0,0,0,0.28); max-width:420px; width:90%; }
-    .login-logo { width:210px; max-width:90%; margin:0 auto 18px; display:block; object-fit:contain; }
-    .login-divider { width:50px; height:3px; background:linear-gradient(90deg,#2c5ba3,#2e7d1e); border-radius:2px; margin:0 auto 20px; }
-    .login-subtitle { font-size:1.05rem; font-weight:700; color:#2c5ba3; margin-bottom:6px; }
-    .login-box p { color:#999; margin-bottom:32px; font-size:0.9rem; }
-    .user-buttons { display:flex; gap:16px; justify-content:center; }
-    .user-btn { flex:1; padding:22px 10px; border:none; border-radius:16px; font-size:1rem; font-weight:700; cursor:pointer; color:white; transition:transform 0.15s,box-shadow 0.15s; display:flex; flex-direction:column; align-items:center; gap:10px; }
-    .user-btn:hover { transform:translateY(-4px); box-shadow:0 10px 24px rgba(0,0,0,0.18); }
-    .btn-anna { background:linear-gradient(135deg,#f093fb,#f5576c); }
-    .btn-dori { background:linear-gradient(135deg,#4facfe,#00f2fe); }
-    .user-avatar { width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900; color:white; }
+    /* LOGIN */
+    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(150deg,#1a3a7a,#1e5c1e)}
+    .login-box{background:#fff;border-radius:20px;padding:44px 60px 50px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.28);max-width:420px;width:90%}
+    .login-logo{width:210px;max-width:90%;margin:0 auto 18px;display:block;object-fit:contain}
+    .logo-fb{display:none;font-size:1.3rem;font-weight:900;color:#2c5ba3}.logo-fb span{color:#2e7d1e}
+    .login-div{width:50px;height:3px;background:linear-gradient(90deg,#2c5ba3,#2e7d1e);border-radius:2px;margin:0 auto 18px}
+    .login-sub{font-size:1rem;font-weight:700;color:#2c5ba3;margin-bottom:6px}
+    .login-box p{color:#999;margin-bottom:30px;font-size:.9rem}
+    .user-buttons{display:flex;gap:16px;justify-content:center}
+    .user-btn{flex:1;padding:22px 10px;border:none;border-radius:16px;font-size:1rem;font-weight:700;cursor:pointer;color:#fff;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:10px}
+    .user-btn:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+    .btn-anna{background:linear-gradient(135deg,#f093fb,#f5576c)}
+    .btn-dori{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+    .user-avatar{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#fff}
 
-    /* ── APP ── */
-    #app-screen { display:none; flex-direction:column; min-height:100vh; }
-    header { background:white; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 10px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; gap:12px; flex-wrap:wrap; }
-    .header-right { display:flex; align-items:center; gap:12px; }
-    .header-logo { height:42px; width:auto; display:block; object-fit:contain; }
-    .logo-fallback { display:none; font-size:1.1rem; font-weight:900; color:#2c5ba3; }
-    .logo-fallback span { color:#2e7d1e; }
-    .header-title { font-size:0.78rem; font-weight:600; color:#999; }
-    .user-badge { padding:5px 14px; border-radius:20px; font-size:0.82rem; font-weight:700; color:white; display:flex; align-items:center; gap:6px; }
-    .badge-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.6); }
-    .badge-anna { background:linear-gradient(135deg,#f093fb,#f5576c); }
-    .badge-dori { background:linear-gradient(135deg,#4facfe,#00f2fe); }
-    .header-left { display:flex; gap:8px; flex-wrap:wrap; }
+    /* APP */
+    #app-screen{display:none;flex-direction:column;min-height:100vh}
+    header{background:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;gap:12px;flex-wrap:wrap}
+    .hdr-right{display:flex;align-items:center;gap:12px}
+    .hdr-logo{height:42px;width:auto;display:block;object-fit:contain}
+    .hdr-text{display:flex;flex-direction:column;gap:2px}
+    .hdr-title{font-size:.78rem;font-weight:600;color:#999}
+    .user-badge{padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;align-self:flex-start}
+    .badge-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6)}
+    .badge-anna{background:linear-gradient(135deg,#f093fb,#f5576c)}
+    .badge-dori{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+    .hdr-left{display:flex;gap:8px;flex-wrap:wrap}
 
-    .btn { padding:9px 18px; border:none; border-radius:10px; font-size:0.88rem; cursor:pointer; font-weight:600; transition:opacity 0.15s,transform 0.1s; font-family:inherit; }
-    .btn:hover { opacity:0.85; transform:translateY(-1px); }
-    .btn-primary { background:#6c63ff; color:white; }
-    .btn-success { background:#22c55e; color:white; }
-    .btn-logout  { background:transparent; border:2px solid #ddd; color:#888; }
-    .btn-sm { padding:5px 12px; font-size:0.8rem; }
+    /* BUTTONS */
+    .btn{padding:9px 18px;border:none;border-radius:10px;font-size:.88rem;cursor:pointer;font-weight:600;transition:opacity .15s,transform .1s;font-family:inherit}
+    .btn:hover{opacity:.85;transform:translateY(-1px)}
+    .btn-primary{background:#6c63ff;color:#fff}
+    .btn-success{background:#22c55e;color:#fff}
+    .btn-ghost{background:transparent;border:2px solid #ddd;color:#888}
+    .btn-sm{padding:5px 12px;font-size:.8rem}
 
-    /* ── MAIN TABS ── */
-    .main-tabs { background:white; border-bottom:2px solid #e5e7eb; display:flex; padding:0 28px; }
-    .main-tab { padding:13px 22px; border:none; background:none; cursor:pointer; font-size:0.95rem; font-weight:600; color:#999; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color 0.15s,border-color 0.15s; font-family:inherit; }
-    .main-tab.active { color:#6c63ff; border-bottom-color:#6c63ff; }
-    .main-tab:hover  { color:#6c63ff; }
+    /* MAIN TABS */
+    .main-tabs{background:#fff;border-bottom:2px solid #e5e7eb;display:flex;padding:0 28px}
+    .main-tab{padding:13px 22px;border:none;background:none;cursor:pointer;font-size:.95rem;font-weight:600;color:#999;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;font-family:inherit}
+    .main-tab.active{color:#6c63ff;border-bottom-color:#6c63ff}
 
-    /* ── CHIPS / FILTERS ── */
-    .filter-bar { padding:14px 28px 10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-    .filter-label { color:#777; font-size:0.85rem; font-weight:600; }
-    .chip { padding:5px 14px; border:2px solid #e0e0e0; border-radius:20px; background:white; cursor:pointer; font-size:0.82rem; font-weight:600; color:#666; transition:all 0.15s; font-family:inherit; }
-    .chip:hover        { border-color:#6c63ff; color:#6c63ff; }
-    .chip.active       { border-color:#6c63ff; background:#6c63ff; color:white; }
-    .chip.active-todo  { border-color:#ef4444; background:#ef4444; color:white; }
-    .chip.active-doing { border-color:#f59e0b; background:#f59e0b; color:white; }
-    .chip.active-done  { border-color:#22c55e; background:#22c55e; color:white; }
+    /* FILTER CHIPS */
+    .filter-bar{padding:14px 28px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .filter-label{color:#777;font-size:.85rem;font-weight:600}
+    .chip{padding:5px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;cursor:pointer;font-size:.82rem;font-weight:600;color:#666;transition:all .15s;font-family:inherit}
+    .chip:hover{border-color:#6c63ff;color:#6c63ff}
+    .chip.active      {border-color:#6c63ff;background:#6c63ff;color:#fff}
+    .chip.active-todo {border-color:#ef4444;background:#ef4444;color:#fff}
+    .chip.active-doing{border-color:#f59e0b;background:#f59e0b;color:#fff}
+    .chip.active-done {border-color:#22c55e;background:#22c55e;color:#fff}
 
-    /* ── NOTES ── */
-    #section-notes { display:block; }
-    .notes-area { padding:14px 28px 40px; }
-    .section-count { color:#bbb; font-size:0.82rem; margin-bottom:12px; }
-    .notes-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+    /* NOTES */
+    #section-notes{display:block}
+    .notes-area{padding:14px 28px 40px}
+    .section-count{color:#bbb;font-size:.82rem;margin-bottom:12px}
+    .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+    .note-card{border-radius:14px;padding:18px 20px;box-shadow:0 3px 12px rgba(0,0,0,.07);transition:transform .15s,box-shadow .15s;min-height:150px;display:flex;flex-direction:column}
+    .note-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+    .nc-0{background:#fff9c4}.nc-1{background:#fce4ec}.nc-2{background:#e3f2fd}
+    .nc-3{background:#e8f5e9}.nc-4{background:#fff3e0}.nc-5{background:#f3e5f5}
+    .note-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:6px;flex-wrap:wrap}
+    .resp-tag{font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:10px;color:#fff;white-space:nowrap}
+    .r-anna{background:#f5576c}.r-dori{background:#4facfe}.r-other{background:#f59e0b}.r-none{background:#ccc;color:#888}
+    .note-author{font-size:.7rem;color:#999}
+    .note-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+    .ntag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:8px}
+    .t-salary  {background:#fff3cd;color:#b45309;border:1px solid #fcd34d}
+    .t-logistics{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+    .t-sick    {background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+    .t-vacation{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+    .t-custom  {background:#f3e8ff;color:#7c3aed;border:1px solid #c4b5fd}
+    .note-worker{font-size:.76rem;color:#555;margin-bottom:5px;font-weight:600}
+    .note-text{flex:1;font-size:.93rem;color:#333;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+    .note-footer{margin-top:12px;display:flex;justify-content:space-between;align-items:center}
+    .note-date{font-size:.7rem;color:#bbb}
+    .del-btn{background:none;border:none;cursor:pointer;font-size:.85rem;opacity:.3;padding:3px 6px;border-radius:6px;transition:opacity .15s,background .15s;font-weight:700;color:#555}
+    .del-btn:hover{opacity:1;background:rgba(0,0,0,.08)}
 
-    .note-card { border-radius:14px; padding:18px 20px; box-shadow:0 3px 12px rgba(0,0,0,0.07); transition:transform 0.15s,box-shadow 0.15s; min-height:150px; display:flex; flex-direction:column; }
-    .note-card:hover { transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,0.12); }
-    .nc-0{background:#fff9c4} .nc-1{background:#fce4ec} .nc-2{background:#e3f2fd}
-    .nc-3{background:#e8f5e9} .nc-4{background:#fff3e0} .nc-5{background:#f3e5f5}
+    /* TASKS */
+    #section-tasks{display:none;flex-direction:column;flex:1}
+    .person-tabs{display:flex;gap:6px;padding:16px 28px 0}
+    .ptab{padding:10px 24px;border:2px solid #e0e0e0;border-bottom:none;border-radius:10px 10px 0 0;background:#f5f5f5;cursor:pointer;font-size:.92rem;font-weight:700;color:#999;transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:8px}
+    .ptab-anna.on{background:#fff0f3;border-color:#f5576c;color:#c0392b}
+    .ptab-dori.on{background:#eff8ff;border-color:#4facfe;color:#1565c0}
+    .ptab-cnt{font-size:.72rem;font-weight:800;padding:1px 7px;border-radius:10px;background:rgba(0,0,0,.1)}
 
-    .note-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:6px; flex-wrap:wrap; }
-    .responsible-tag { font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:10px; color:white; white-space:nowrap; }
-    .resp-anna  { background:#f5576c; }
-    .resp-dori  { background:#4facfe; }
-    .resp-other { background:#f59e0b; }
-    .resp-none  { background:#ccc; color:#888; }
-    .note-author-tag { font-size:0.7rem; color:#999; }
+    .tasks-panel{background:#fff;margin:0 28px 30px;border:2px solid #e0e0e0;border-radius:0 14px 14px 14px;padding:20px}
+    .task-list{display:flex;flex-direction:column;gap:10px}
 
-    /* Note tags */
-    .note-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
-    .note-tag { font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:8px; }
-    .tag-salary   { background:#fff3cd; color:#b45309; border:1px solid #fcd34d; }
-    .tag-logistics{ background:#dbeafe; color:#1d4ed8; border:1px solid #93c5fd; }
-    .tag-sick     { background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; }
-    .tag-vacation { background:#dcfce7; color:#16a34a; border:1px solid #86efac; }
-    .tag-custom   { background:#f3e8ff; color:#7c3aed; border:1px solid #c4b5fd; }
+    /* Task Card */
+    .tc{border-radius:14px;padding:18px 20px;border:2px solid #e5e7eb;background:#fafafa;transition:box-shadow .15s}
+    .tc:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+    .tc.s-done {background:#f0fdf4;border-color:#86efac}
+    .tc.s-doing{background:#fffbeb;border-color:#fcd34d}
+    .tc.s-todo {background:#fff5f5;border-color:#fca5a5}
+    .tc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+    .tc-title{font-size:1rem;font-weight:700;color:#222;word-break:break-word;flex:1}
+    .tc.s-done .tc-title{text-decoration:line-through;color:#aaa}
+    .tc-desc{font-size:.84rem;color:#666;line-height:1.5;margin-bottom:10px;white-space:pre-wrap}
+    .tc-meta{font-size:.72rem;color:#bbb;margin-bottom:14px}
 
-    .note-worker { font-size:0.76rem; color:#555; margin-bottom:6px; font-weight:600; }
-    .note-text { flex:1; font-size:0.93rem; color:#333; line-height:1.6; white-space:pre-wrap; word-break:break-word; }
-    .note-footer { margin-top:12px; display:flex; justify-content:space-between; align-items:center; }
-    .note-date { font-size:0.7rem; color:#bbb; }
-    .icon-btn { background:none; border:none; cursor:pointer; font-size:0.85rem; opacity:0.35; padding:3px 6px; border-radius:6px; transition:opacity 0.15s,background 0.15s; font-weight:700; color:#555; }
-    .icon-btn:hover { opacity:1; background:rgba(0,0,0,0.08); }
-
-    /* ── TASKS ── */
-    #section-tasks { display:none; flex-direction:column; flex:1; }
-    .person-tabs { display:flex; gap:6px; padding:14px 28px 0; }
-    .person-tab { padding:10px 22px; border:2px solid #e0e0e0; border-bottom:none; border-radius:10px 10px 0 0; background:#f8f8f8; cursor:pointer; font-size:0.9rem; font-weight:700; color:#999; transition:all 0.15s; font-family:inherit; }
-    .pt-anna.active { background:#fff0f3; border-color:#f5576c; color:#c0392b; }
-    .pt-dori.active { background:#eff8ff; border-color:#4facfe; color:#1565c0; }
-    .tab-count { display:inline-block; font-size:0.75rem; font-weight:800; padding:1px 7px; border-radius:10px; margin-right:6px; background:rgba(0,0,0,0.08); }
-
-    .tasks-panel { background:white; margin:0 28px 30px; border:2px solid #e0e0e0; border-radius:0 14px 14px 14px; padding:20px; }
-    .task-list { display:flex; flex-direction:column; gap:10px; }
-
-    /* Task card */
-    .task-card { border-radius:14px; padding:16px 18px; background:#fafafa; border:2px solid #e5e7eb; transition:box-shadow 0.15s; }
-    .task-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
-    .task-card.s-done  { background:#f0fdf4; border-color:#86efac; }
-    .task-card.s-doing { background:#fffbeb; border-color:#fcd34d; }
-    .task-card.s-todo  { background:#fff5f5; border-color:#fca5a5; }
-
-    .tc-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
-    .tc-title { font-size:1rem; font-weight:700; color:#222; word-break:break-word; flex:1; }
-    .task-card.s-done .tc-title { text-decoration:line-through; color:#aaa; }
-    .tc-desc { font-size:0.84rem; color:#666; line-height:1.5; margin-bottom:10px; white-space:pre-wrap; word-break:break-word; }
-    .tc-meta { font-size:0.72rem; color:#bbb; margin-bottom:12px; }
-
-    /* Big status buttons */
-    .status-btns { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
-    .sbtn { flex:1; min-width:80px; padding:9px 6px; border:2px solid #e0e0e0; border-radius:10px; background:white; cursor:pointer; font-size:0.82rem; font-weight:700; color:#888; font-family:inherit; transition:all 0.15s; text-align:center; }
-    .sbtn:hover { transform:translateY(-1px); }
-    .sbtn.active-todo  { background:#fee2e2; border-color:#ef4444; color:#dc2626; }
-    .sbtn.active-doing { background:#fef3c7; border-color:#f59e0b; color:#d97706; }
-    .sbtn.active-done  { background:#dcfce7; border-color:#22c55e; color:#16a34a; }
+    /* Status buttons — big and clear */
+    .sbtns{display:flex;gap:8px;margin-bottom:12px}
+    .sbtn{flex:1;padding:10px 6px;border:2px solid #e0e0e0;border-radius:10px;background:#fff;cursor:pointer;font-size:.85rem;font-weight:700;color:#888;font-family:inherit;transition:all .15s;text-align:center;white-space:nowrap}
+    .sbtn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.1)}
+    .sbtn.on-todo {background:#fee2e2;border-color:#ef4444;color:#dc2626;box-shadow:0 2px 8px rgba(239,68,68,.25)}
+    .sbtn.on-doing{background:#fef3c7;border-color:#f59e0b;color:#d97706;box-shadow:0 2px 8px rgba(245,158,11,.25)}
+    .sbtn.on-done {background:#dcfce7;border-color:#22c55e;color:#16a34a;box-shadow:0 2px 8px rgba(34,197,94,.25)}
 
     /* Handling note */
-    .tc-note-display { font-size:0.82rem; color:#2563eb; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:8px 12px; margin-bottom:8px; line-height:1.5; }
-    .tc-note-label { font-weight:700; font-size:0.75rem; color:#3b82f6; display:block; margin-bottom:2px; }
-    .tc-note-form { display:none; gap:8px; margin-bottom:8px; }
-    .tc-note-form.open { display:flex; }
-    .tc-note-form textarea { flex:1; min-height:56px; padding:8px 12px; border:2px solid #e0e0e0; border-radius:8px; font-size:0.83rem; font-family:inherit; resize:vertical; direction:rtl; outline:none; }
-    .tc-note-form textarea:focus { border-color:#6c63ff; }
-    .tc-note-actions { display:flex; gap:6px; align-items:center; flex-shrink:0; flex-direction:column; justify-content:center; }
-    .tc-footer { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
-    .tc-note-btn { background:none; border:1px dashed #ccc; border-radius:8px; padding:5px 12px; font-size:0.78rem; color:#888; cursor:pointer; font-family:inherit; transition:all 0.15s; }
-    .tc-note-btn:hover { border-color:#6c63ff; color:#6c63ff; background:#f5f3ff; }
-    .tc-delete { background:none; border:none; cursor:pointer; font-size:0.8rem; color:#ccc; padding:4px 8px; border-radius:6px; transition:all 0.15s; font-weight:700; }
-    .tc-delete:hover { background:#fee2e2; color:#dc2626; }
+    .tc-note-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 13px;margin-bottom:10px;font-size:.83rem;color:#1d4ed8;line-height:1.5}
+    .tc-note-box b{display:block;font-size:.72rem;color:#3b82f6;margin-bottom:3px}
+    .tc-note-form{display:none;gap:8px;margin-bottom:10px}
+    .tc-note-form.open{display:flex}
+    .tc-note-form textarea{flex:1;min-height:60px;padding:8px 12px;border:2px solid #e0e0e0;border-radius:8px;font-size:.83rem;font-family:inherit;resize:vertical;direction:rtl;outline:none;transition:border-color .15s}
+    .tc-note-form textarea:focus{border-color:#6c63ff}
+    .tc-note-form .nc-btns{display:flex;flex-direction:column;gap:6px;justify-content:center}
+    .tc-footer{display:flex;justify-content:space-between;align-items:center}
+    .note-toggle-btn{background:none;border:1px dashed #ccc;border-radius:8px;padding:5px 13px;font-size:.78rem;color:#888;cursor:pointer;font-family:inherit;transition:all .15s}
+    .note-toggle-btn:hover{border-color:#6c63ff;color:#6c63ff;background:#f5f3ff}
 
-    /* ── EMPTY ── */
-    .empty { text-align:center; padding:60px 20px; color:#ccc; grid-column:1/-1; }
-    .empty-icon { font-size:2.5rem; margin-bottom:12px; }
-    .empty p { font-size:0.95rem; }
+    /* EMPTY */
+    .empty{text-align:center;padding:60px 20px;color:#ccc;grid-column:1/-1}
+    .empty-icon{font-size:2.5rem;margin-bottom:12px}
+    .empty p{font-size:.95rem}
 
-    /* ── MODALS ── */
-    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; align-items:center; justify-content:center; padding:20px; }
-    .overlay.open { display:flex; }
-    .modal { background:white; border-radius:18px; padding:30px; width:100%; max-width:480px; box-shadow:0 20px 60px rgba(0,0,0,0.18); animation:up 0.2s ease; max-height:90vh; overflow-y:auto; }
-    @keyframes up { from{transform:translateY(18px);opacity:0} to{transform:translateY(0);opacity:1} }
-    .modal h2 { font-size:1.2rem; color:#333; margin-bottom:22px; }
-    .fg { margin-bottom:16px; }
-    label { display:block; font-size:0.88rem; font-weight:600; color:#555; margin-bottom:5px; }
-    .opt { font-weight:400; color:#bbb; font-size:0.78rem; margin-right:4px; }
-    input[type="text"], textarea, select { width:100%; padding:10px 13px; border:2px solid #e5e7eb; border-radius:10px; font-size:0.92rem; font-family:inherit; direction:rtl; outline:none; color:#333; transition:border-color 0.15s; background:white; }
-    input:focus, textarea:focus, select:focus { border-color:#6c63ff; }
-    textarea { resize:vertical; min-height:90px; }
-    .modal-footer { display:flex; gap:10px; margin-top:22px; }
+    /* MODALS */
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:20px}
+    .overlay.open{display:flex}
+    .modal{background:#fff;border-radius:18px;padding:30px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:up .2s ease;max-height:90vh;overflow-y:auto}
+    @keyframes up{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal h2{font-size:1.2rem;color:#333;margin-bottom:22px}
+    .fg{margin-bottom:16px}
+    label{display:block;font-size:.88rem;font-weight:600;color:#555;margin-bottom:5px}
+    .opt{font-weight:400;color:#bbb;font-size:.78rem;margin-right:4px}
+    input[type=text],textarea,select{width:100%;padding:10px 13px;border:2px solid #e5e7eb;border-radius:10px;font-size:.92rem;font-family:inherit;direction:rtl;outline:none;color:#333;transition:border-color .15s;background:#fff}
+    input:focus,textarea:focus,select:focus{border-color:#6c63ff}
+    textarea{resize:vertical;min-height:90px}
+    .modal-footer{display:flex;gap:10px;margin-top:22px}
 
-    /* tag selector in modal */
-    .tag-selector { display:flex; flex-wrap:wrap; gap:7px; }
-    .tag-toggle { padding:5px 13px; border:2px solid #e0e0e0; border-radius:16px; background:white; cursor:pointer; font-size:0.82rem; font-weight:600; color:#666; transition:all 0.15s; font-family:inherit; }
-    .tag-toggle:hover { border-color:#6c63ff; color:#6c63ff; }
-    .tag-toggle.sel-salary    { background:#fef3c7; border-color:#f59e0b; color:#b45309; }
-    .tag-toggle.sel-logistics { background:#dbeafe; border-color:#3b82f6; color:#1d4ed8; }
-    .tag-toggle.sel-sick      { background:#fee2e2; border-color:#ef4444; color:#dc2626; }
-    .tag-toggle.sel-vacation  { background:#dcfce7; border-color:#22c55e; color:#16a34a; }
-    .tag-toggle.sel-custom    { background:#f3e8ff; border-color:#8b5cf6; color:#7c3aed; }
-    .custom-tag-input { margin-top:8px; display:none; }
-    .custom-tag-input.show { display:block; }
+    /* TAG SELECTOR */
+    .tag-sel{display:flex;flex-wrap:wrap;gap:7px}
+    .ttog{padding:5px 13px;border:2px solid #e0e0e0;border-radius:16px;background:#fff;cursor:pointer;font-size:.82rem;font-weight:600;color:#666;transition:all .15s;font-family:inherit}
+    .ttog:hover{border-color:#6c63ff;color:#6c63ff}
+    .ttog.on-salary   {background:#fef3c7;border-color:#f59e0b;color:#b45309}
+    .ttog.on-logistics{background:#dbeafe;border-color:#3b82f6;color:#1d4ed8}
+    .ttog.on-sick     {background:#fee2e2;border-color:#ef4444;color:#dc2626}
+    .ttog.on-vacation {background:#dcfce7;border-color:#22c55e;color:#16a34a}
+    .ttog.on-custom   {background:#f3e8ff;border-color:#8b5cf6;color:#7c3aed}
+    .custom-tag-wrap{margin-top:8px;display:none}
+    .custom-tag-wrap.show{display:block}
 
-    /* export */
-    .export-list { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
-    .export-row { padding:13px 16px; border:2px solid #e5e7eb; border-radius:12px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.15s; }
-    .export-row:hover { border-color:#6c63ff; background:#f5f3ff; }
-    .export-row .eicon { font-size:1.4rem; }
-    .export-row strong { display:block; font-size:0.92rem; color:#333; }
-    .export-row small  { font-size:0.78rem; color:#999; }
+    /* EXPORT */
+    .export-list{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+    .exp-row{padding:13px 16px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s}
+    .exp-row:hover{border-color:#6c63ff;background:#f5f3ff}
+    .exp-row .ei{font-size:1.4rem}
+    .exp-row strong{display:block;font-size:.92rem;color:#333}
+    .exp-row small{font-size:.78rem;color:#999}
 
     @media(max-width:600px){
-      header{padding:12px 16px} .main-tabs{padding:0 16px} .filter-bar{padding:12px 16px 8px}
-      .notes-area{padding:12px 16px 30px} .notes-grid{grid-template-columns:1fr}
-      .person-tabs{padding:12px 16px 0} .tasks-panel{margin:0 16px 24px}
+      header{padding:12px 16px}.main-tabs{padding:0 16px}.filter-bar{padding:12px 16px 8px}
+      .notes-area{padding:12px 16px 30px}.notes-grid{grid-template-columns:1fr}
+      .person-tabs{padding:12px 16px 0}.tasks-panel{margin:0 16px 24px}
+      .sbtns{flex-direction:column}.sbtn{padding:12px}
     }
   </style>
 </head>
@@ -192,15 +182,19 @@
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <img src="logo.png" alt="Project Pro" class="login-logo"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
-    <div class="logo-fallback">Project <span>Pro</span></div>
-    <div class="login-divider"></div>
-    <div class="login-subtitle">מנופאים — פתקים ומשימות</div>
+    <img src="logo.png" class="login-logo" alt="Project Pro"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <div class="logo-fb">Project <span>Pro</span></div>
+    <div class="login-div"></div>
+    <div class="login-sub">מנופאים — פתקים ומשימות</div>
     <p>בחר את המשתמש שלך</p>
     <div class="user-buttons">
-      <button class="user-btn btn-anna" onclick="login('אנה')"><div class="user-avatar">א</div>אנה</button>
-      <button class="user-btn btn-dori" onclick="login('דורי')"><div class="user-avatar">ד</div>דורי</button>
+      <button class="user-btn btn-anna" onclick="login('אנה')">
+        <div class="user-avatar">א</div>אנה
+      </button>
+      <button class="user-btn btn-dori" onclick="login('דורי')">
+        <div class="user-avatar">ד</div>דורי
+      </button>
     </div>
   </div>
 </div>
@@ -208,37 +202,37 @@
 <!-- APP -->
 <div id="app-screen">
   <header>
-    <div class="header-right">
-      <img src="logo.png" alt="Project Pro" class="header-logo"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
-      <div class="logo-fallback">Project <span>Pro</span></div>
-      <div style="display:flex;flex-direction:column;gap:2px">
-        <span class="header-title">מנופאים — פתקים ומשימות</span>
-        <span id="user-badge" class="user-badge" style="align-self:flex-start"></span>
+    <div class="hdr-right">
+      <img src="logo.png" class="hdr-logo" alt="Project Pro"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <div class="logo-fb" style="font-size:1.1rem">Project <span>Pro</span></div>
+      <div class="hdr-text">
+        <span class="hdr-title">מנופאים — פתקים ומשימות</span>
+        <span id="user-badge" class="user-badge"></span>
       </div>
     </div>
-    <div class="header-left">
+    <div class="hdr-left">
       <button id="btn-add-note" class="btn btn-primary" onclick="openAddNote()">+ פתק חדש</button>
       <button id="btn-add-task" class="btn btn-primary" style="display:none" onclick="openAddTask()">+ משימה חדשה</button>
       <button class="btn btn-success" onclick="openExport()">ייצוא לאקסל</button>
-      <button class="btn btn-logout" onclick="logout()">יציאה</button>
+      <button class="btn btn-ghost"   onclick="logout()">יציאה</button>
     </div>
   </header>
 
   <div class="main-tabs">
-    <button class="main-tab active" id="tab-notes" onclick="switchTab('notes')">פתקים</button>
-    <button class="main-tab"        id="tab-tasks" onclick="switchTab('tasks')">משימות</button>
+    <button class="main-tab active" id="tab-notes" onclick="gotoTab('notes')">פתקים</button>
+    <button class="main-tab"        id="tab-tasks" onclick="gotoTab('tasks')">משימות</button>
   </div>
 
-  <!-- NOTES -->
+  <!-- NOTES SECTION -->
   <div id="section-notes">
     <div class="filter-bar">
       <span class="filter-label">מטפל:</span>
-      <button class="chip active" onclick="setNoteFilter('הכל',this)">הכל</button>
-      <button class="chip" onclick="setNoteFilter('אנה',this)">אנה</button>
-      <button class="chip" onclick="setNoteFilter('דורי',this)">דורי</button>
-      <button class="chip" onclick="setNoteFilter('אחר',this)">אחר</button>
-      <button class="chip" onclick="setNoteFilter('ללא',this)">לא שויך</button>
+      <button class="chip active" onclick="setNF('הכל',this)">הכל</button>
+      <button class="chip" onclick="setNF('אנה',this)">אנה</button>
+      <button class="chip" onclick="setNF('דורי',this)">דורי</button>
+      <button class="chip" onclick="setNF('אחר',this)">אחר</button>
+      <button class="chip" onclick="setNF('ללא',this)">לא שויך</button>
     </div>
     <div class="notes-area">
       <div id="notes-count" class="section-count"></div>
@@ -246,81 +240,76 @@
     </div>
   </div>
 
-  <!-- TASKS -->
+  <!-- TASKS SECTION -->
   <div id="section-tasks">
     <div class="person-tabs">
-      <button id="pt-anna" class="person-tab pt-anna active" onclick="setPersonTab('אנה')">משימות אנה</button>
-      <button id="pt-dori" class="person-tab pt-dori"        onclick="setPersonTab('דורי')">משימות דורי</button>
+      <button id="pt-anna" class="ptab ptab-anna" onclick="goPerson('אנה')">משימות אנה</button>
+      <button id="pt-dori" class="ptab ptab-dori" onclick="goPerson('דורי')">משימות דורי</button>
     </div>
     <div class="tasks-panel">
       <div class="filter-bar" style="padding:0 0 14px">
         <span class="filter-label">סטטוס:</span>
-        <button class="chip active" onclick="setStatusFilter('הכל',this)">הכל</button>
-        <button class="chip" onclick="setStatusFilter('todo',this)">לא בוצע</button>
-        <button class="chip" onclick="setStatusFilter('doing',this)">בטיפול</button>
-        <button class="chip" onclick="setStatusFilter('done',this)">בוצע</button>
+        <button class="chip active" onclick="setSF('הכל',this)">הכל</button>
+        <button class="chip" onclick="setSF('todo',this)">לא בוצע</button>
+        <button class="chip" onclick="setSF('doing',this)">בטיפול</button>
+        <button class="chip" onclick="setSF('done',this)">טופל</button>
       </div>
       <div id="task-list" class="task-list"></div>
     </div>
   </div>
 </div>
 
-<!-- ADD NOTE MODAL -->
+<!-- NOTE MODAL -->
 <div id="note-modal" class="overlay">
   <div class="modal">
     <h2>פתק חדש</h2>
-
     <div class="fg">
       <label>מי מטפל <span class="opt">(אופציונלי)</span></label>
-      <select id="note-responsible" onchange="toggleCustomResp(this.value)">
+      <select id="note-resp" onchange="toggleCR(this.value)">
         <option value="">— לא שויך —</option>
         <option value="אנה">אנה</option>
         <option value="דורי">דורי</option>
         <option value="אחר">אחר</option>
       </select>
-      <div id="custom-resp-wrap" style="display:none;margin-top:8px">
-        <input type="text" id="note-custom-resp" placeholder="שם המטפל..." autocomplete="off" />
+      <div id="cr-wrap" style="display:none;margin-top:8px">
+        <input type="text" id="note-cr" placeholder="שם המטפל..."/>
       </div>
     </div>
-
     <div class="fg">
       <label>שם העובד <span class="opt">(אופציונלי)</span></label>
-      <input type="text" id="note-worker" placeholder="לדוגמה: יוסי כהן..." autocomplete="off" />
+      <input type="text" id="note-worker" placeholder="לדוגמה: יוסי כהן..."/>
     </div>
-
     <div class="fg">
       <label>תיוגים <span class="opt">(אופציונלי)</span></label>
-      <div class="tag-selector">
-        <button type="button" class="tag-toggle" data-tag="salary"    onclick="toggleTag(this)">שכר</button>
-        <button type="button" class="tag-toggle" data-tag="logistics" onclick="toggleTag(this)">לוגיסטיקה</button>
-        <button type="button" class="tag-toggle" data-tag="sick"      onclick="toggleTag(this)">מחלה</button>
-        <button type="button" class="tag-toggle" data-tag="vacation"  onclick="toggleTag(this)">חופש</button>
-        <button type="button" class="tag-toggle" data-tag="custom"    onclick="toggleTag(this)">+ אחר</button>
+      <div class="tag-sel">
+        <button type="button" class="ttog" data-tag="salary"    onclick="toggleTag(this)">שכר</button>
+        <button type="button" class="ttog" data-tag="logistics" onclick="toggleTag(this)">לוגיסטיקה</button>
+        <button type="button" class="ttog" data-tag="sick"      onclick="toggleTag(this)">מחלה</button>
+        <button type="button" class="ttog" data-tag="vacation"  onclick="toggleTag(this)">חופש</button>
+        <button type="button" class="ttog" data-tag="custom"    onclick="toggleTag(this)">+ אחר</button>
       </div>
-      <div id="custom-tag-wrap" class="custom-tag-input">
-        <input type="text" id="custom-tag-text" placeholder="שם התיוג..." autocomplete="off" style="margin-top:0" />
+      <div id="ct-wrap" class="custom-tag-wrap">
+        <input type="text" id="ct-text" placeholder="שם התיוג..."/>
       </div>
     </div>
-
     <div class="fg">
       <label>תוכן הפתק <span style="color:#f5576c">*</span></label>
       <textarea id="note-text" placeholder="כתוב כאן..."></textarea>
     </div>
-
     <div class="modal-footer">
-      <button class="btn btn-primary" onclick="saveNote()">שמור</button>
-      <button class="btn btn-logout"  onclick="closeModal('note-modal')">ביטול</button>
+      <button class="btn btn-primary" onclick="saveNote()">שמור פתק</button>
+      <button class="btn btn-ghost"   onclick="closeModal('note-modal')">ביטול</button>
     </div>
   </div>
 </div>
 
-<!-- ADD TASK MODAL -->
+<!-- TASK MODAL -->
 <div id="task-modal" class="overlay">
   <div class="modal">
     <h2>משימה חדשה</h2>
     <div class="fg">
       <label>כותרת <span style="color:#f5576c">*</span></label>
-      <input type="text" id="task-title" placeholder="מה צריך לעשות?" />
+      <input type="text" id="task-title" placeholder="מה צריך לעשות?"/>
     </div>
     <div class="fg">
       <label>פרטים <span class="opt">(אופציונלי)</span></label>
@@ -338,12 +327,12 @@
       <select id="task-status">
         <option value="todo">לא בוצע</option>
         <option value="doing">בטיפול</option>
-        <option value="done">בוצע</option>
+        <option value="done">טופל</option>
       </select>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" onclick="saveTask()">שמור</button>
-      <button class="btn btn-logout"  onclick="closeModal('task-modal')">ביטול</button>
+      <button class="btn btn-primary" onclick="saveTask()">שמור משימה</button>
+      <button class="btn btn-ghost"   onclick="closeModal('task-modal')">ביטול</button>
     </div>
   </div>
 </div>
@@ -352,261 +341,227 @@
 <div id="export-modal" class="overlay">
   <div class="modal">
     <h2>ייצוא לאקסל</h2>
-    <div id="export-list" class="export-list"></div>
+    <div id="exp-list" class="export-list"></div>
     <div class="modal-footer">
-      <button class="btn btn-logout" onclick="closeModal('export-modal')">סגור</button>
+      <button class="btn btn-ghost" onclick="closeModal('export-modal')">סגור</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── STATE ──────────────────────────────────────────────────────────────────
-let currentUser  = null;
-let mainTab      = 'notes';
-let noteFilter   = 'הכל';
-let personTab    = 'אנה';
-let statusFilter = 'הכל';
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+let CU = null;          // currentUser
+let MAIN = 'notes';
+let NF   = 'הכל';       // note filter
+let PT   = 'אנה';       // person tab
+let SF   = 'הכל';       // status filter
 
-const STATUS_LABEL = { todo:'לא בוצע', doing:'בטיפול', done:'בוצע' };
-const STATUS_ICON  = { todo:'✕', doing:'…', done:'✓' };
+const SL = {todo:'לא בוצע', doing:'בטיפול', done:'טופל'};
 const COLORS = ['nc-0','nc-1','nc-2','nc-3','nc-4','nc-5'];
+const TLABEL = {salary:'שכר', logistics:'לוגיסטיקה', sick:'מחלה', vacation:'חופש'};
+const TCLS   = {salary:'t-salary', logistics:'t-logistics', sick:'t-sick', vacation:'t-vacation'};
 
-const TAG_LABEL = { salary:'שכר', logistics:'לוגיסטיקה', sick:'מחלה', vacation:'חופש' };
-const TAG_CLASS = { salary:'tag-salary', logistics:'tag-logistics', sick:'tag-sick', vacation:'tag-vacation' };
-
-// ── API ────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   API
+═══════════════════════════════════════════════════ */
 async function api(method, path, body) {
   const res = await fetch(path, {
     method,
-    headers: body ? { 'Content-Type': 'application/json' } : {},
+    headers: body ? {'Content-Type':'application/json'} : {},
     body: body ? JSON.stringify(body) : undefined
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
 
-// ── LOGIN ──────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   LOGIN / LOGOUT
+═══════════════════════════════════════════════════ */
 function login(user) {
-  currentUser = user;
+  CU = user;
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app-screen').style.display = 'flex';
-  const badge = document.getElementById('user-badge');
-  badge.innerHTML = `<span class="badge-dot"></span>${user}`;
-  badge.className = 'user-badge ' + (user==='אנה' ? 'badge-anna' : 'badge-dori');
-  document.getElementById('task-assignee').value = user;
-  personTab = user;
-  updatePersonTabs();
+  const b = document.getElementById('user-badge');
+  b.innerHTML = `<span class="badge-dot"></span>${user}`;
+  b.className = 'user-badge ' + (user==='אנה' ? 'badge-anna' : 'badge-dori');
   loadNotes();
 }
 
 function logout() {
-  currentUser = null;
+  CU = null;
   document.getElementById('app-screen').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  switchTab('notes');
+  showTab('notes');
 }
 
-// ── TABS ───────────────────────────────────────────────────────────────────
-function switchTab(tab) {
-  mainTab = tab;
+/* ═══════════════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════════════ */
+function showTab(tab) {
+  MAIN = tab;
   document.getElementById('tab-notes').classList.toggle('active', tab==='notes');
   document.getElementById('tab-tasks').classList.toggle('active', tab==='tasks');
   document.getElementById('section-notes').style.display = tab==='notes' ? 'block' : 'none';
-  document.getElementById('section-tasks').style.display = tab==='tasks' ? 'flex' : 'none';
-  document.getElementById('btn-add-note').style.display  = tab==='notes' ? '' : 'none';
-  document.getElementById('btn-add-task').style.display  = tab==='tasks' ? '' : 'none';
+  document.getElementById('section-tasks').style.display = tab==='tasks' ? 'flex'  : 'none';
+  document.getElementById('btn-add-note').style.display  = tab==='notes' ? ''      : 'none';
+  document.getElementById('btn-add-task').style.display  = tab==='tasks' ? ''      : 'none';
+}
+
+// Navigate to notes tab and load
+function gotoTab(tab) {
+  showTab(tab);
   if (tab==='tasks') loadTasks();
 }
 
-function setPersonTab(person) {
-  personTab = person;
-  updatePersonTabs();
-  renderTasks(window._tasksCache || []);
-}
-function updatePersonTabs() {
-  document.getElementById('pt-anna').classList.toggle('active', personTab==='אנה');
-  document.getElementById('pt-dori').classList.toggle('active', personTab==='דורי');
+// Navigate to a specific person's tasks
+async function gotoPersonTasks(person) {
+  PT = person;
+  showTab('tasks');
+  await loadTasks();
 }
 
-// ── FILTERS ────────────────────────────────────────────────────────────────
-function setNoteFilter(f, btn) {
-  noteFilter = f;
-  document.querySelectorAll('#section-notes .chip').forEach(b => b.classList.remove('active'));
+function goPerson(person) {
+  PT = person;
+  refreshPersonTabs();
+  renderTasks(window._TC || []);
+}
+
+function refreshPersonTabs() {
+  const all = window._TC || [];
+  const ac = all.filter(t=>t.assignee==='אנה').length;
+  const dc = all.filter(t=>t.assignee==='דורי').length;
+  const pa = document.getElementById('pt-anna');
+  const pd = document.getElementById('pt-dori');
+  pa.className = 'ptab ptab-anna' + (PT==='אנה' ? ' on' : '');
+  pd.className = 'ptab ptab-dori' + (PT==='דורי' ? ' on' : '');
+  pa.innerHTML = `משימות אנה${ac ? ` <span class="ptab-cnt">${ac}</span>` : ''}`;
+  pd.innerHTML = `משימות דורי${dc ? ` <span class="ptab-cnt">${dc}</span>` : ''}`;
+}
+
+/* ═══════════════════════════════════════════════════
+   FILTERS
+═══════════════════════════════════════════════════ */
+function setNF(f, btn) {
+  NF = f;
+  document.querySelectorAll('#section-notes .chip').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderNotes(window._notesCache || []);
-}
-function setStatusFilter(f, btn) {
-  statusFilter = f;
-  document.querySelectorAll('#section-tasks .chip').forEach(b => b.className='chip');
-  const cls = f==='הכל'?'active': f==='todo'?'active-todo': f==='doing'?'active-doing':'active-done';
-  btn.classList.add(cls);
-  renderTasks(window._tasksCache || []);
+  renderNotes(window._NC || []);
 }
 
-// ── TAGS ───────────────────────────────────────────────────────────────────
-function toggleTag(btn) {
-  const tag = btn.dataset.tag;
-  const cls = 'sel-' + tag;
-  btn.classList.toggle(cls);
-  if (tag === 'custom') {
-    document.getElementById('custom-tag-wrap').classList.toggle('show', btn.classList.contains(cls));
-  }
+function setSF(f, btn) {
+  SF = f;
+  document.querySelectorAll('#section-tasks .chip').forEach(b=>b.className='chip');
+  btn.classList.add(f==='הכל'?'active':f==='todo'?'active-todo':f==='doing'?'active-doing':'active-done');
+  renderTasks(window._TC || []);
 }
 
-function getSelectedTags() {
-  const tags = [];
-  document.querySelectorAll('.tag-toggle').forEach(btn => {
-    const tag = btn.dataset.tag;
-    if (btn.classList.contains('sel-' + tag)) {
-      if (tag === 'custom') {
-        const val = document.getElementById('custom-tag-text').value.trim();
-        if (val) tags.push({ type:'custom', label: val });
-      } else {
-        tags.push({ type: tag, label: TAG_LABEL[tag] });
-      }
-    }
-  });
-  return tags;
-}
-
-function resetTags() {
-  document.querySelectorAll('.tag-toggle').forEach(btn => {
-    btn.className = 'tag-toggle';
-  });
-  document.getElementById('custom-tag-wrap').classList.remove('show');
-  document.getElementById('custom-tag-text').value = '';
-}
-
-// ── CUSTOM RESPONSIBLE ─────────────────────────────────────────────────────
-function toggleCustomResp(val) {
-  document.getElementById('custom-resp-wrap').style.display = val==='אחר' ? 'block' : 'none';
-  if (val !== 'אחר') document.getElementById('note-custom-resp').value = '';
-}
-
-// ── RENDER NOTES ───────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   NOTES
+═══════════════════════════════════════════════════ */
 async function loadNotes() {
   try {
-    const notes = await api('GET', '/api/notes');
-    window._notesCache = notes;
-    renderNotes(notes);
-  } catch(e) { console.error(e); }
+    window._NC = await api('GET','/api/notes');
+    renderNotes(window._NC);
+  } catch(e) { console.error('loadNotes',e); }
 }
 
 function renderNotes(notes) {
   let list = [...notes];
-  if      (noteFilter==='אנה')  list = list.filter(n => n.responsible==='אנה');
-  else if (noteFilter==='דורי') list = list.filter(n => n.responsible==='דורי');
-  else if (noteFilter==='אחר')  list = list.filter(n => n.responsible==='אחר');
-  else if (noteFilter==='ללא')  list = list.filter(n => !n.responsible);
+  if      (NF==='אנה')  list = list.filter(n=>n.responsible==='אנה');
+  else if (NF==='דורי') list = list.filter(n=>n.responsible==='דורי');
+  else if (NF==='אחר')  list = list.filter(n=>n.responsible==='אחר');
+  else if (NF==='ללא')  list = list.filter(n=>!n.responsible);
   list.reverse();
 
   const grid = document.getElementById('notes-grid');
   document.getElementById('notes-count').textContent = list.length ? `${list.length} פתקים` : '';
 
   if (!list.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">🗒</div><p>אין פתקים. לחץ "פתק חדש" להתחיל!</p></div>`;
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">🗒</div><p>אין פתקים. לחץ "פתק חדש"!</p></div>`;
     return;
   }
 
   grid.innerHTML = list.map(n => {
-    const cc = COLORS[n.colorIdx % 6];
-
-    // Responsible tag — show custom name if exists
-    const respDisplay = n.responsible==='אחר' && n.customResp ? n.customResp : n.responsible;
-    const respTag = n.responsible==='אנה'
-      ? `<span class="responsible-tag resp-anna">מטפל: אנה</span>`
-      : n.responsible==='דורי'
-      ? `<span class="responsible-tag resp-dori">מטפל: דורי</span>`
-      : n.responsible==='אחר'
-      ? `<span class="responsible-tag resp-other">מטפל: ${esc(respDisplay)}</span>`
-      : `<span class="responsible-tag resp-none">לא שויך</span>`;
-
-    // Tags
-    const tagsHtml = (n.tags||[]).length
-      ? `<div class="note-tags">${(n.tags||[]).map(t =>
-          `<span class="note-tag ${t.type==='custom'?'tag-custom':TAG_CLASS[t.type]||'tag-custom'}">${esc(t.label)}</span>`
-        ).join('')}</div>`
-      : '';
-
-    const workerHtml = n.worker
-      ? `<div class="note-worker">עובד: ${esc(n.worker)}</div>` : '';
-
+    const cc  = COLORS[n.colorIdx%6];
+    const rdn = n.responsible==='אחר' && n.customResp ? n.customResp : n.responsible;
+    const rtag = n.responsible==='אנה' ? `<span class="resp-tag r-anna">מטפל: אנה</span>`
+      : n.responsible==='דורי' ? `<span class="resp-tag r-dori">מטפל: דורי</span>`
+      : n.responsible==='אחר'  ? `<span class="resp-tag r-other">מטפל: ${esc(rdn)}</span>`
+      :                           `<span class="resp-tag r-none">לא שויך</span>`;
+    const tags = (n.tags||[]).map(t=>`<span class="ntag ${t.type==='custom'?'t-custom':TCLS[t.type]||'t-custom'}">${esc(t.label)}</span>`).join('');
     return `
       <div class="note-card ${cc}">
-        <div class="note-top">${respTag}<span class="note-author-tag">נוסף ע"י ${esc(n.author)}</span></div>
-        ${workerHtml}
-        ${tagsHtml}
+        <div class="note-top">${rtag}<span class="note-author">נוסף ע"י ${esc(n.author)}</span></div>
+        ${n.worker ? `<div class="note-worker">עובד: ${esc(n.worker)}</div>` : ''}
+        ${tags ? `<div class="note-tags">${tags}</div>` : ''}
         <div class="note-text">${esc(n.text)}</div>
         <div class="note-footer">
           <span class="note-date">${fmt(n.created)}</span>
-          <button class="icon-btn" onclick="deleteNote('${n.id}')">✕</button>
+          <button class="del-btn" onclick="deleteNote('${n.id}')">✕</button>
         </div>
       </div>`;
   }).join('');
 }
 
-// ── RENDER TASKS ───────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   TASKS
+═══════════════════════════════════════════════════ */
 async function loadTasks() {
   try {
-    const tasks = await api('GET', '/api/tasks');
-    window._tasksCache = tasks;
-    renderTasks(tasks);
-  } catch(e) { console.error(e); }
+    window._TC = await api('GET','/api/tasks');
+    refreshPersonTabs();
+    renderTasks(window._TC);
+  } catch(e) { console.error('loadTasks',e); }
 }
 
 function renderTasks(tasks) {
-  // Update tab counts
-  const allTasks = window._tasksCache || tasks;
-  const annaCnt = allTasks.filter(t=>t.assignee==='אנה').length;
-  const doriCnt = allTasks.filter(t=>t.assignee==='דורי').length;
-  document.getElementById('pt-anna').innerHTML =
-    `משימות אנה ${annaCnt ? `<span class="tab-count">${annaCnt}</span>` : ''}`;
-  document.getElementById('pt-dori').innerHTML =
-    `משימות דורי ${doriCnt ? `<span class="tab-count">${doriCnt}</span>` : ''}`;
-
-  let list = tasks.filter(t => t.assignee===personTab);
-  if (statusFilter!=='הכל') list = list.filter(t => t.status===statusFilter);
+  let list = tasks.filter(t=>t.assignee===PT);
+  if (SF!=='הכל') list = list.filter(t=>t.status===SF);
   list = [...list].reverse();
 
   const el = document.getElementById('task-list');
   if (!list.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>אין משימות עבור ${personTab}. לחץ "+ משימה חדשה"!</p></div>`;
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><p>אין משימות עבור ${esc(PT)}.<br>לחץ "+ משימה חדשה" כדי להוסיף!</p></div>`;
     return;
   }
 
   el.innerHTML = list.map(t => {
     const desc = t.desc ? `<div class="tc-desc">${esc(t.desc)}</div>` : '';
-    const noteDisplay = t.handlingNote
-      ? `<div class="tc-note-display"><span class="tc-note-label">הערת טיפול</span>${esc(t.handlingNote)}</div>` : '';
-
+    const note = t.handlingNote
+      ? `<div class="tc-note-box"><b>הערת טיפול</b>${esc(t.handlingNote)}</div>` : '';
     return `
-      <div class="task-card s-${t.status}" id="tc-${t.id}">
-        <div class="tc-header">
+      <div class="tc s-${t.status}" id="tc-${t.id}">
+        <div class="tc-top">
           <div class="tc-title">${esc(t.title)}</div>
-          <button class="tc-delete" onclick="deleteTask('${t.id}')" title="מחק">✕</button>
+          <button class="del-btn" onclick="deleteTask('${t.id}')">✕</button>
         </div>
         ${desc}
         <div class="tc-meta">נוסף ע"י ${esc(t.createdBy)} · ${fmt(t.created)}</div>
 
-        <div class="status-btns">
-          <button class="sbtn ${t.status==='todo'?'active-todo':''}"
-            onclick="changeStatus('${t.id}','todo')">❌ לא בוצע</button>
-          <button class="sbtn ${t.status==='doing'?'active-doing':''}"
-            onclick="changeStatus('${t.id}','doing')">⏳ בטיפול</button>
-          <button class="sbtn ${t.status==='done'?'active-done':''}"
-            onclick="changeStatus('${t.id}','done')">✅ טופל</button>
+        <div class="sbtns">
+          <button class="sbtn ${t.status==='todo' ?'on-todo' :''}" onclick="setStatus('${t.id}','todo')">
+            ❌ לא בוצע
+          </button>
+          <button class="sbtn ${t.status==='doing'?'on-doing':''}" onclick="setStatus('${t.id}','doing')">
+            ⏳ בטיפול
+          </button>
+          <button class="sbtn ${t.status==='done' ?'on-done' :''}" onclick="setStatus('${t.id}','done')">
+            ✅ טופל
+          </button>
         </div>
 
-        ${noteDisplay}
+        ${note}
         <div class="tc-note-form" id="nf-${t.id}">
-          <textarea id="hn-${t.id}" placeholder="כתוב הערה על הטיפול...">${esc(t.handlingNote||'')}</textarea>
-          <div class="tc-note-actions">
-            <button class="btn btn-primary btn-sm" onclick="saveHandlingNote('${t.id}')">שמור</button>
-            <button class="btn btn-logout btn-sm" onclick="toggleNote('${t.id}',false)">ביטול</button>
+          <textarea id="hn-${t.id}" placeholder="כתוב הערה על הטיפול..."></textarea>
+          <div class="nc-btns">
+            <button class="btn btn-primary btn-sm" onclick="saveNote2('${t.id}')">שמור</button>
+            <button class="btn btn-ghost   btn-sm" onclick="closeNote2('${t.id}')">ביטול</button>
           </div>
         </div>
         <div class="tc-footer">
-          <button class="tc-note-btn" onclick="toggleNote('${t.id}',true)">
+          <button class="note-toggle-btn" onclick="openNote2('${t.id}','${(t.handlingNote||'').replace(/'/g,"\\'")}')">
             ${t.handlingNote ? '✏ ערוך הערה' : '+ הוסף הערה'}
           </button>
         </div>
@@ -614,76 +569,74 @@ function renderTasks(tasks) {
   }).join('');
 }
 
-// ── HANDLING NOTE ──────────────────────────────────────────────────────────
-function toggleNote(id, show) {
-  document.getElementById('nf-' + id).classList.toggle('open', show);
-  if (show) setTimeout(() => document.getElementById('hn-' + id).focus(), 50);
-}
-
-async function saveHandlingNote(id) {
-  const note = document.getElementById('hn-' + id).value.trim();
+/* ═══════════════════════════════════════════════════
+   TASK ACTIONS
+═══════════════════════════════════════════════════ */
+async function setStatus(id, status) {
   try {
-    await api('PATCH', `/api/tasks/${id}`, { handlingNote: note });
-    const cache = window._tasksCache || [];
-    const t = cache.find(x => x.id===id);
-    if (t) t.handlingNote = note;
-    renderTasks(cache);
-  } catch(e) { alert('שגיאה בשמירה'); }
+    await api('PATCH',`/api/tasks/${id}`,{status});
+    const t = (window._TC||[]).find(x=>x.id===id);
+    if (t) { t.status = status; renderTasks(window._TC); }
+  } catch(e) { alert('שגיאה בעדכון סטטוס'); }
 }
 
-// ── STATUS OPS ─────────────────────────────────────────────────────────────
-async function cycleStatus(id, current) {
-  const next = current==='todo'?'doing': current==='doing'?'done':'todo';
-  await patchStatus(id, next);
+function openNote2(id, existing) {
+  const form = document.getElementById('nf-'+id);
+  const ta   = document.getElementById('hn-'+id);
+  ta.value   = existing;
+  form.classList.add('open');
+  ta.focus();
 }
-async function changeStatus(id, status) { await patchStatus(id, status); }
-
-async function patchStatus(id, status) {
+function closeNote2(id) { document.getElementById('nf-'+id).classList.remove('open'); }
+async function saveNote2(id) {
+  const note = document.getElementById('hn-'+id).value.trim();
   try {
-    await api('PATCH', `/api/tasks/${id}`, { status });
-    const cache = window._tasksCache || [];
-    const t = cache.find(x => x.id===id);
-    if (t) t.status = status;
-    renderTasks(cache);
-  } catch(e) { alert('שגיאה בעדכון'); }
+    await api('PATCH',`/api/tasks/${id}`,{handlingNote:note});
+    const t = (window._TC||[]).find(x=>x.id===id);
+    if (t) { t.handlingNote = note; renderTasks(window._TC); }
+  } catch(e) { alert('שגיאה בשמירת הערה'); }
 }
 
-// ── ADD NOTE ───────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   ADD / SAVE NOTE
+═══════════════════════════════════════════════════ */
 function openAddNote() {
-  document.getElementById('note-responsible').value = '';
-  document.getElementById('note-custom-resp').value = '';
-  document.getElementById('custom-resp-wrap').style.display = 'none';
+  document.getElementById('note-resp').value   = '';
+  document.getElementById('note-cr').value     = '';
   document.getElementById('note-worker').value = '';
-  document.getElementById('note-text').value = '';
+  document.getElementById('note-text').value   = '';
+  document.getElementById('cr-wrap').style.display = 'none';
   resetTags();
   document.getElementById('note-modal').classList.add('open');
-  setTimeout(() => document.getElementById('note-text').focus(), 80);
+  setTimeout(()=>document.getElementById('note-text').focus(),80);
 }
 
 async function saveNote() {
   const text = document.getElementById('note-text').value.trim();
   if (!text) { shake('note-text'); return; }
-  const responsible  = document.getElementById('note-responsible').value;
-  const customResp   = document.getElementById('note-custom-resp').value.trim();
-  const worker       = document.getElementById('note-worker').value.trim();
-  const tags         = getSelectedTags();
+  const responsible = document.getElementById('note-resp').value;
+  const customResp  = document.getElementById('note-cr').value.trim();
+  const worker      = document.getElementById('note-worker').value.trim();
+  const tags        = getSelectedTags();
   try {
-    const note = await api('POST', '/api/notes', { text, responsible, customResp, worker, tags, author: currentUser });
-    window._notesCache = window._notesCache || [];
-    window._notesCache.push(note);
-    renderNotes(window._notesCache);
+    const note = await api('POST','/api/notes',{text,responsible,customResp,worker,tags,author:CU});
+    window._NC = window._NC||[];
+    window._NC.push(note);
+    renderNotes(window._NC);
     closeModal('note-modal');
-  } catch(e) { alert('שגיאה בשמירה'); }
+  } catch(e) { alert('שגיאה בשמירת פתק'); }
 }
 
-// ── ADD TASK ───────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   ADD / SAVE TASK
+═══════════════════════════════════════════════════ */
 function openAddTask() {
-  document.getElementById('task-title').value = '';
-  document.getElementById('task-desc').value  = '';
-  document.getElementById('task-assignee').value = personTab;
+  document.getElementById('task-title').value    = '';
+  document.getElementById('task-desc').value     = '';
+  document.getElementById('task-assignee').value = PT;
   document.getElementById('task-status').value   = 'todo';
   document.getElementById('task-modal').classList.add('open');
-  setTimeout(() => document.getElementById('task-title').focus(), 80);
+  setTimeout(()=>document.getElementById('task-title').focus(),80);
 }
 
 async function saveTask() {
@@ -692,136 +645,132 @@ async function saveTask() {
   const desc     = document.getElementById('task-desc').value.trim();
   const assignee = document.getElementById('task-assignee').value;
   const status   = document.getElementById('task-status').value;
+
   try {
-    const task = await api('POST', '/api/tasks', { title, desc, assignee, status, createdBy: currentUser });
-    window._tasksCache = window._tasksCache || [];
-    window._tasksCache.push(task);
+    // 1. Save to server
+    const task = await api('POST','/api/tasks',{title,desc,assignee,status,createdBy:CU});
+
+    // 2. Close modal
     closeModal('task-modal');
-    personTab = assignee;
-    switchTab('tasks');   // ← עובר לטאב משימות אוטומטית
-    updatePersonTabs();
-    renderTasks(window._tasksCache);
-  } catch(e) { alert('שגיאה בשמירה'); }
+
+    // 3. Set the person tab to the assignee
+    PT = assignee;
+
+    // 4. Switch to tasks tab (without triggering loadTasks)
+    showTab('tasks');
+
+    // 5. Reload fresh data from server and render
+    await loadTasks();
+
+  } catch(e) { alert('שגיאה בשמירת משימה'); }
 }
 
-// ── DELETE ─────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   DELETE
+═══════════════════════════════════════════════════ */
 async function deleteNote(id) {
   if (!confirm('למחוק את הפתק?')) return;
   try {
-    await api('DELETE', `/api/notes/${id}`);
-    window._notesCache = (window._notesCache||[]).filter(n => n.id!==id);
-    renderNotes(window._notesCache);
+    await api('DELETE',`/api/notes/${id}`);
+    window._NC = (window._NC||[]).filter(n=>n.id!==id);
+    renderNotes(window._NC);
   } catch(e) { alert('שגיאה במחיקה'); }
 }
 async function deleteTask(id) {
   if (!confirm('למחוק את המשימה?')) return;
   try {
-    await api('DELETE', `/api/tasks/${id}`);
-    window._tasksCache = (window._tasksCache||[]).filter(t => t.id!==id);
-    renderTasks(window._tasksCache);
+    await api('DELETE',`/api/tasks/${id}`);
+    window._TC = (window._TC||[]).filter(t=>t.id!==id);
+    refreshPersonTabs();
+    renderTasks(window._TC);
   } catch(e) { alert('שגיאה במחיקה'); }
 }
 
-// ── EXPORT ─────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   TAGS
+═══════════════════════════════════════════════════ */
+function toggleTag(btn) {
+  const tag = btn.dataset.tag;
+  const cls = 'on-'+tag;
+  btn.classList.toggle(cls);
+  if (tag==='custom')
+    document.getElementById('ct-wrap').classList.toggle('show', btn.classList.contains(cls));
+}
+function getSelectedTags() {
+  const tags = [];
+  document.querySelectorAll('.ttog').forEach(btn=>{
+    const tag = btn.dataset.tag;
+    if (btn.classList.contains('on-'+tag)) {
+      if (tag==='custom') {
+        const v = document.getElementById('ct-text').value.trim();
+        if (v) tags.push({type:'custom',label:v});
+      } else tags.push({type:tag,label:TLABEL[tag]});
+    }
+  });
+  return tags;
+}
+function resetTags() {
+  document.querySelectorAll('.ttog').forEach(b=>b.className='ttog');
+  document.getElementById('ct-wrap').classList.remove('show');
+  document.getElementById('ct-text').value='';
+}
+function toggleCR(val) {
+  document.getElementById('cr-wrap').style.display = val==='אחר' ? 'block' : 'none';
+  if (val!=='אחר') document.getElementById('note-cr').value='';
+}
+
+/* ═══════════════════════════════════════════════════
+   EXPORT
+═══════════════════════════════════════════════════ */
 function openExport() {
-  const notes = window._notesCache || [];
-  const tasks = window._tasksCache || [];
-  document.getElementById('export-list').innerHTML = `
-    <div class="export-row" onclick="expNotes('הכל')">
-      <span class="eicon">📝</span><div><strong>כל הפתקים (${notes.length})</strong><small>גיליון אחד</small></div>
-    </div>
-    <div class="export-row" onclick="expNotes('אנה')">
-      <span class="eicon">📋</span><div><strong>פתקים — מטפל אנה (${notes.filter(n=>n.responsible==='אנה').length})</strong><small></small></div>
-    </div>
-    <div class="export-row" onclick="expNotes('דורי')">
-      <span class="eicon">📋</span><div><strong>פתקים — מטפל דורי (${notes.filter(n=>n.responsible==='דורי').length})</strong><small></small></div>
-    </div>
-    <div class="export-row" onclick="expTasks('הכל')">
-      <span class="eicon">✅</span><div><strong>כל המשימות (${tasks.length})</strong><small>גיליון אחד</small></div>
-    </div>
-    <div class="export-row" onclick="expTasks('אנה')">
-      <span class="eicon">📌</span><div><strong>משימות אנה (${tasks.filter(t=>t.assignee==='אנה').length})</strong><small></small></div>
-    </div>
-    <div class="export-row" onclick="expTasks('דורי')">
-      <span class="eicon">📌</span><div><strong>משימות דורי (${tasks.filter(t=>t.assignee==='דורי').length})</strong><small></small></div>
-    </div>
-    <div class="export-row" onclick="expAll()">
-      <span class="eicon">📊</span><div><strong>ייצוא מלא</strong><small>פתקים + משימות, גיליונות נפרדים</small></div>
-    </div>`;
+  const N = window._NC||[], T = window._TC||[];
+  document.getElementById('exp-list').innerHTML=`
+    <div class="exp-row" onclick="expN('הכל')"><span class="ei">📝</span><div><strong>כל הפתקים (${N.length})</strong><small>גיליון אחד</small></div></div>
+    <div class="exp-row" onclick="expN('אנה')"><span class="ei">📋</span><div><strong>פתקים — מטפל אנה (${N.filter(n=>n.responsible==='אנה').length})</strong><small></small></div></div>
+    <div class="exp-row" onclick="expN('דורי')"><span class="ei">📋</span><div><strong>פתקים — מטפל דורי (${N.filter(n=>n.responsible==='דורי').length})</strong><small></small></div></div>
+    <div class="exp-row" onclick="expT('הכל')"><span class="ei">✅</span><div><strong>כל המשימות (${T.length})</strong><small>גיליון אחד</small></div></div>
+    <div class="exp-row" onclick="expT('אנה')"><span class="ei">📌</span><div><strong>משימות אנה (${T.filter(t=>t.assignee==='אנה').length})</strong><small></small></div></div>
+    <div class="exp-row" onclick="expT('דורי')"><span class="ei">📌</span><div><strong>משימות דורי (${T.filter(t=>t.assignee==='דורי').length})</strong><small></small></div></div>
+    <div class="exp-row" onclick="expAll()"><span class="ei">📊</span><div><strong>ייצוא מלא</strong><small>פתקים + משימות, גיליונות נפרדים</small></div></div>`;
   document.getElementById('export-modal').classList.add('open');
 }
 
-function expNotes(filter) {
-  let notes = window._notesCache || [];
-  if (filter!=='הכל') notes = notes.filter(n => n.responsible===filter);
-  const data = notes.map(n => ({
-    'מי מטפל': n.responsible==='אחר' && n.customResp ? n.customResp : (n.responsible||'—'),
-    'שם עובד': n.worker||'',
-    'תיוגים': (n.tags||[]).map(t=>t.label).join(', '),
-    'תוכן': n.text,
-    'נוסף ע"י': n.author,
-    'תאריך': fmt(n.created)
-  }));
-  xlsxDl([{name:'פתקים',data}], `פתקים_${filter}.xlsx`);
+function expN(f) {
+  let N = window._NC||[];
+  if (f!=='הכל') N = N.filter(n=>n.responsible===f);
+  xlDl([{name:'פתקים',data:N.map(n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)}))}],`פתקים_${f}.xlsx`);
   closeModal('export-modal');
 }
-
-function expTasks(filter) {
-  let tasks = window._tasksCache || [];
-  if (filter!=='הכל') tasks = tasks.filter(t => t.assignee===filter);
-  const data = tasks.map(t => ({
-    'שייך ל': t.assignee,
-    'כותרת': t.title,
-    'פרטים': t.desc||'',
-    'סטטוס': STATUS_LABEL[t.status],
-    'הערת טיפול': t.handlingNote||'',
-    'נוסף ע"י': t.createdBy,
-    'תאריך': fmt(t.created)
-  }));
-  xlsxDl([{name:'משימות',data}], `משימות_${filter}.xlsx`);
+function expT(f) {
+  let T = window._TC||[];
+  if (f!=='הכל') T = T.filter(t=>t.assignee===f);
+  xlDl([{name:'משימות',data:T.map(t=>({'שייך ל':t.assignee,'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status],'הערת טיפול':t.handlingNote||'','נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)}))}],`משימות_${f}.xlsx`);
   closeModal('export-modal');
 }
-
 function expAll() {
-  const notes = window._notesCache || [];
-  const tasks = window._tasksCache || [];
-  const noteRow = n => ({
-    'מי מטפל': n.responsible==='אחר'&&n.customResp ? n.customResp : (n.responsible||'—'),
-    'שם עובד': n.worker||'', 'תיוגים': (n.tags||[]).map(t=>t.label).join(', '),
-    'תוכן': n.text, 'נוסף ע"י': n.author, 'תאריך': fmt(n.created)
-  });
-  const taskRow = t => ({
-    'שייך ל': t.assignee, 'כותרת': t.title, 'פרטים': t.desc||'',
-    'סטטוס': STATUS_LABEL[t.status], 'הערת טיפול': t.handlingNote||'',
-    'נוסף ע"י': t.createdBy, 'תאריך': fmt(t.created)
-  });
-  xlsxDl([
-    {name:'פתקים',       data: notes.map(noteRow)},
-    {name:'משימות',      data: tasks.map(taskRow)},
-    {name:'משימות אנה',  data: tasks.filter(t=>t.assignee==='אנה').map(taskRow)},
-    {name:'משימות דורי', data: tasks.filter(t=>t.assignee==='דורי').map(taskRow)}
-  ], 'ייצוא_מלא.xlsx');
+  const N=window._NC||[], T=window._TC||[];
+  const nr=n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)});
+  const tr=t=>({'שייך ל':t.assignee,'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status],'הערת טיפול':t.handlingNote||'','נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)});
+  xlDl([{name:'פתקים',data:N.map(nr)},{name:'משימות',data:T.map(tr)},{name:'משימות אנה',data:T.filter(t=>t.assignee==='אנה').map(tr)},{name:'משימות דורי',data:T.filter(t=>t.assignee==='דורי').map(tr)}],'ייצוא_מלא.xlsx');
   closeModal('export-modal');
 }
-
-function xlsxDl(sheets, filename) {
-  const wb = XLSX.utils.book_new();
-  sheets.forEach(s => {
-    if (!s.data.length) return;
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s.data), s.name);
-  });
-  XLSX.writeFile(wb, filename);
+function xlDl(sheets, fn) {
+  const wb=XLSX.utils.book_new();
+  sheets.forEach(s=>{if(s.data.length) XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s.data),s.name);});
+  XLSX.writeFile(wb,fn);
 }
 
-// ── UTILS ──────────────────────────────────────────────────────────────────
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function fmt(iso) { return new Date(iso).toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
-function shake(id) { const el=document.getElementById(id); el.style.borderColor='#f5576c'; el.focus(); setTimeout(()=>el.style.borderColor='',1500); }
+/* ═══════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════ */
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(iso){return new Date(iso).toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function shake(id){const el=document.getElementById(id);el.style.borderColor='#f5576c';el.focus();setTimeout(()=>el.style.borderColor='',1500)}
 
-document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); }));
-document.getElementById('note-text').addEventListener('keydown',  e => { if(e.ctrlKey&&e.key==='Enter') saveNote(); });
-document.getElementById('task-title').addEventListener('keydown', e => { if(e.ctrlKey&&e.key==='Enter') saveTask(); });
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+document.getElementById('note-text').addEventListener('keydown', e=>{if(e.ctrlKey&&e.key==='Enter')saveNote()});
+document.getElementById('task-title').addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')saveTask()});
 </script>
 </body>
 </html>
