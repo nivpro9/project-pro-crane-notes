@@ -98,48 +98,48 @@
     /* ── TASKS ── */
     #section-tasks { display:none; flex-direction:column; flex:1; }
     .person-tabs { display:flex; gap:6px; padding:14px 28px 0; }
-    .person-tab { padding:9px 20px; border:2px solid #e0e0e0; border-bottom:none; border-radius:10px 10px 0 0; background:#f8f8f8; cursor:pointer; font-size:0.9rem; font-weight:600; color:#999; transition:all 0.15s; font-family:inherit; }
+    .person-tab { padding:10px 22px; border:2px solid #e0e0e0; border-bottom:none; border-radius:10px 10px 0 0; background:#f8f8f8; cursor:pointer; font-size:0.9rem; font-weight:700; color:#999; transition:all 0.15s; font-family:inherit; }
     .pt-anna.active { background:#fff0f3; border-color:#f5576c; color:#c0392b; }
     .pt-dori.active { background:#eff8ff; border-color:#4facfe; color:#1565c0; }
+    .tab-count { display:inline-block; font-size:0.75rem; font-weight:800; padding:1px 7px; border-radius:10px; margin-right:6px; background:rgba(0,0,0,0.08); }
 
     .tasks-panel { background:white; margin:0 28px 30px; border:2px solid #e0e0e0; border-radius:0 14px 14px 14px; padding:20px; }
-    .task-list { display:flex; flex-direction:column; gap:8px; }
+    .task-list { display:flex; flex-direction:column; gap:10px; }
 
-    .task-item { border:2px solid #e5e7eb; border-radius:12px; padding:13px 16px; display:flex; align-items:flex-start; gap:12px; background:#fafafa; transition:border-color 0.15s,background 0.15s; flex-direction:column; }
-    .task-item-top { display:flex; align-items:flex-start; gap:12px; width:100%; }
-    .task-item:hover { background:white; border-color:#c4b5fd; }
-    .task-item.s-done  { border-color:#86efac; background:#f0fdf4; }
-    .task-item.s-doing { border-color:#fcd34d; background:#fffbeb; }
-    .task-item.s-todo  { border-color:#fca5a5; background:#fff5f5; }
+    /* Task card */
+    .task-card { border-radius:14px; padding:16px 18px; background:#fafafa; border:2px solid #e5e7eb; transition:box-shadow 0.15s; }
+    .task-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+    .task-card.s-done  { background:#f0fdf4; border-color:#86efac; }
+    .task-card.s-doing { background:#fffbeb; border-color:#fcd34d; }
+    .task-card.s-todo  { background:#fff5f5; border-color:#fca5a5; }
 
-    .cycle-btn { flex-shrink:0; width:34px; height:34px; border-radius:50%; border:none; cursor:pointer; font-size:0.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; transition:transform 0.15s; }
-    .cycle-btn:hover { transform:scale(1.18); }
-    .cb-todo  { background:#fee2e2; color:#dc2626; }
-    .cb-doing { background:#fef3c7; color:#d97706; }
-    .cb-done  { background:#dcfce7; color:#16a34a; }
+    .tc-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
+    .tc-title { font-size:1rem; font-weight:700; color:#222; word-break:break-word; flex:1; }
+    .task-card.s-done .tc-title { text-decoration:line-through; color:#aaa; }
+    .tc-desc { font-size:0.84rem; color:#666; line-height:1.5; margin-bottom:10px; white-space:pre-wrap; word-break:break-word; }
+    .tc-meta { font-size:0.72rem; color:#bbb; margin-bottom:12px; }
 
-    .task-body { flex:1; min-width:0; }
-    .task-title { font-size:0.95rem; font-weight:600; color:#222; word-break:break-word; margin-bottom:3px; }
-    .task-item.s-done .task-title { text-decoration:line-through; color:#aaa; }
-    .task-desc { font-size:0.83rem; color:#666; line-height:1.5; white-space:pre-wrap; word-break:break-word; }
-    .task-meta { margin-top:6px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .status-pill { font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:10px; }
-    .sp-todo  { background:#fee2e2; color:#dc2626; }
-    .sp-doing { background:#fef3c7; color:#d97706; }
-    .sp-done  { background:#dcfce7; color:#16a34a; }
-    .task-by   { font-size:0.72rem; color:#aaa; }
-    .task-date { font-size:0.7rem; color:#ccc; }
-    .task-actions { display:flex; gap:6px; align-items:center; flex-shrink:0; }
-    .status-select { padding:5px 8px; border:2px solid #e0e0e0; border-radius:8px; font-size:0.8rem; cursor:pointer; font-family:inherit; direction:rtl; outline:none; background:white; color:#333; }
-    .status-select:focus { border-color:#6c63ff; }
+    /* Big status buttons */
+    .status-btns { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+    .sbtn { flex:1; min-width:80px; padding:9px 6px; border:2px solid #e0e0e0; border-radius:10px; background:white; cursor:pointer; font-size:0.82rem; font-weight:700; color:#888; font-family:inherit; transition:all 0.15s; text-align:center; }
+    .sbtn:hover { transform:translateY(-1px); }
+    .sbtn.active-todo  { background:#fee2e2; border-color:#ef4444; color:#dc2626; }
+    .sbtn.active-doing { background:#fef3c7; border-color:#f59e0b; color:#d97706; }
+    .sbtn.active-done  { background:#dcfce7; border-color:#22c55e; color:#16a34a; }
 
-    /* handling note */
-    .handling-area { width:100%; margin-top:8px; }
-    .handling-note-display { font-size:0.82rem; color:#2563eb; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:7px 12px; margin-top:6px; line-height:1.5; }
-    .handling-note-display::before { content:"הערת טיפול: "; font-weight:700; }
-    .handling-input-wrap { display:flex; gap:8px; margin-top:6px; }
-    .handling-input-wrap textarea { flex:1; min-height:60px; padding:8px 12px; border:2px solid #e0e0e0; border-radius:8px; font-size:0.82rem; font-family:inherit; resize:vertical; direction:rtl; outline:none; }
-    .handling-input-wrap textarea:focus { border-color:#6c63ff; }
+    /* Handling note */
+    .tc-note-display { font-size:0.82rem; color:#2563eb; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:8px 12px; margin-bottom:8px; line-height:1.5; }
+    .tc-note-label { font-weight:700; font-size:0.75rem; color:#3b82f6; display:block; margin-bottom:2px; }
+    .tc-note-form { display:none; gap:8px; margin-bottom:8px; }
+    .tc-note-form.open { display:flex; }
+    .tc-note-form textarea { flex:1; min-height:56px; padding:8px 12px; border:2px solid #e0e0e0; border-radius:8px; font-size:0.83rem; font-family:inherit; resize:vertical; direction:rtl; outline:none; }
+    .tc-note-form textarea:focus { border-color:#6c63ff; }
+    .tc-note-actions { display:flex; gap:6px; align-items:center; flex-shrink:0; flex-direction:column; justify-content:center; }
+    .tc-footer { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .tc-note-btn { background:none; border:1px dashed #ccc; border-radius:8px; padding:5px 12px; font-size:0.78rem; color:#888; cursor:pointer; font-family:inherit; transition:all 0.15s; }
+    .tc-note-btn:hover { border-color:#6c63ff; color:#6c63ff; background:#f5f3ff; }
+    .tc-delete { background:none; border:none; cursor:pointer; font-size:0.8rem; color:#ccc; padding:4px 8px; border-radius:6px; transition:all 0.15s; font-weight:700; }
+    .tc-delete:hover { background:#fee2e2; color:#dc2626; }
 
     /* ── EMPTY ── */
     .empty { text-align:center; padding:60px 20px; color:#ccc; grid-column:1/-1; }
@@ -555,72 +555,69 @@ async function loadTasks() {
 }
 
 function renderTasks(tasks) {
+  // Update tab counts
+  const allTasks = window._tasksCache || tasks;
+  const annaCnt = allTasks.filter(t=>t.assignee==='אנה').length;
+  const doriCnt = allTasks.filter(t=>t.assignee==='דורי').length;
+  document.getElementById('pt-anna').innerHTML =
+    `משימות אנה ${annaCnt ? `<span class="tab-count">${annaCnt}</span>` : ''}`;
+  document.getElementById('pt-dori').innerHTML =
+    `משימות דורי ${doriCnt ? `<span class="tab-count">${doriCnt}</span>` : ''}`;
+
   let list = tasks.filter(t => t.assignee===personTab);
   if (statusFilter!=='הכל') list = list.filter(t => t.status===statusFilter);
   list = [...list].reverse();
 
   const el = document.getElementById('task-list');
   if (!list.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">✅</div><p>אין משימות. לחץ "משימה חדשה"!</p></div>`;
+    el.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>אין משימות עבור ${personTab}. לחץ "+ משימה חדשה"!</p></div>`;
     return;
   }
 
   el.innerHTML = list.map(t => {
-    const desc = t.desc ? `<div class="task-desc">${esc(t.desc)}</div>` : '';
-    const handlingNote = t.handlingNote
-      ? `<div class="handling-note-display">${esc(t.handlingNote)}</div>` : '';
+    const desc = t.desc ? `<div class="tc-desc">${esc(t.desc)}</div>` : '';
+    const noteDisplay = t.handlingNote
+      ? `<div class="tc-note-display"><span class="tc-note-label">הערת טיפול</span>${esc(t.handlingNote)}</div>` : '';
 
     return `
-      <div class="task-item s-${t.status}" id="ti-${t.id}">
-        <div class="task-item-top">
-          <button class="cycle-btn cb-${t.status}" onclick="cycleStatus('${t.id}','${t.status}')" title="שנה סטטוס">${STATUS_ICON[t.status]}</button>
-          <div class="task-body">
-            <div class="task-title">${esc(t.title)}</div>
-            ${desc}
-            <div class="task-meta">
-              <span class="status-pill sp-${t.status}">${STATUS_LABEL[t.status]}</span>
-              <span class="task-by">נוסף ע"י ${esc(t.createdBy)}</span>
-              <span class="task-date">${fmt(t.created)}</span>
-            </div>
-            ${handlingNote}
-          </div>
-          <div class="task-actions">
-            <select class="status-select" onchange="changeStatus('${t.id}',this.value)">
-              <option value="todo"  ${t.status==='todo' ?'selected':''}>לא בוצע</option>
-              <option value="doing" ${t.status==='doing'?'selected':''}>בטיפול</option>
-              <option value="done"  ${t.status==='done' ?'selected':''}>בוצע</option>
-            </select>
-            <button class="icon-btn" onclick="deleteTask('${t.id}')">✕</button>
+      <div class="task-card s-${t.status}" id="tc-${t.id}">
+        <div class="tc-header">
+          <div class="tc-title">${esc(t.title)}</div>
+          <button class="tc-delete" onclick="deleteTask('${t.id}')" title="מחק">✕</button>
+        </div>
+        ${desc}
+        <div class="tc-meta">נוסף ע"י ${esc(t.createdBy)} · ${fmt(t.created)}</div>
+
+        <div class="status-btns">
+          <button class="sbtn ${t.status==='todo'?'active-todo':''}"
+            onclick="changeStatus('${t.id}','todo')">❌ לא בוצע</button>
+          <button class="sbtn ${t.status==='doing'?'active-doing':''}"
+            onclick="changeStatus('${t.id}','doing')">⏳ בטיפול</button>
+          <button class="sbtn ${t.status==='done'?'active-done':''}"
+            onclick="changeStatus('${t.id}','done')">✅ טופל</button>
+        </div>
+
+        ${noteDisplay}
+        <div class="tc-note-form" id="nf-${t.id}">
+          <textarea id="hn-${t.id}" placeholder="כתוב הערה על הטיפול...">${esc(t.handlingNote||'')}</textarea>
+          <div class="tc-note-actions">
+            <button class="btn btn-primary btn-sm" onclick="saveHandlingNote('${t.id}')">שמור</button>
+            <button class="btn btn-logout btn-sm" onclick="toggleNote('${t.id}',false)">ביטול</button>
           </div>
         </div>
-        <div class="handling-area">
-          <div id="handling-form-${t.id}" style="display:none">
-            <div class="handling-input-wrap">
-              <textarea placeholder="כתוב הערת טיפול..." id="hn-${t.id}"></textarea>
-              <div style="display:flex;flex-direction:column;gap:6px">
-                <button class="btn btn-primary btn-sm" onclick="saveHandlingNote('${t.id}')">שמור</button>
-                <button class="btn btn-logout btn-sm" onclick="toggleHandlingForm('${t.id}',false)">ביטול</button>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-logout btn-sm" style="margin-top:4px" onclick="toggleHandlingForm('${t.id}',true)">
-            ${t.handlingNote ? '✏ ערוך הערת טיפול' : '+ הוסף הערת טיפול'}
+        <div class="tc-footer">
+          <button class="tc-note-btn" onclick="toggleNote('${t.id}',true)">
+            ${t.handlingNote ? '✏ ערוך הערה' : '+ הוסף הערה'}
           </button>
         </div>
       </div>`;
   }).join('');
-
-  // Fill existing handling notes into textareas
-  list.forEach(t => {
-    const ta = document.getElementById('hn-' + t.id);
-    if (ta && t.handlingNote) ta.value = t.handlingNote;
-  });
 }
 
 // ── HANDLING NOTE ──────────────────────────────────────────────────────────
-function toggleHandlingForm(id, show) {
-  document.getElementById('handling-form-' + id).style.display = show ? 'block' : 'none';
-  if (show) document.getElementById('hn-' + id).focus();
+function toggleNote(id, show) {
+  document.getElementById('nf-' + id).classList.toggle('open', show);
+  if (show) setTimeout(() => document.getElementById('hn-' + id).focus(), 50);
 }
 
 async function saveHandlingNote(id) {
@@ -699,10 +696,11 @@ async function saveTask() {
     const task = await api('POST', '/api/tasks', { title, desc, assignee, status, createdBy: currentUser });
     window._tasksCache = window._tasksCache || [];
     window._tasksCache.push(task);
+    closeModal('task-modal');
     personTab = assignee;
+    switchTab('tasks');   // ← עובר לטאב משימות אוטומטית
     updatePersonTabs();
     renderTasks(window._tasksCache);
-    closeModal('task-modal');
   } catch(e) { alert('שגיאה בשמירה'); }
 }
 
