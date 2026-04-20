@@ -7,64 +7,112 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;min-height:100vh;direction:rtl}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f1f4f8;min-height:100vh;direction:rtl}
 
-    /* ── HEADER ── */
-    header{background:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
-           box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
-    .hdr-left{display:flex;align-items:center;gap:12px}
-    .hdr-logo{height:40px;width:auto;object-fit:contain}
-    .logo-fb{display:none;font-size:1.1rem;font-weight:900;color:#2c5ba3}
+    /* ══ LOGIN SCREEN ══════════════════════════════════════════ */
+    #login{
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;
+      background:linear-gradient(150deg,#1a3a7a 0%,#1e5c1e 100%);
+    }
+    .login-box{
+      background:#fff;border-radius:22px;padding:44px 52px 50px;
+      text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.3);
+      max-width:380px;width:92%;
+    }
+    .login-logo{width:200px;max-width:85%;margin:0 auto 16px;display:block;object-fit:contain}
+    .logo-fb{display:none;font-size:1.4rem;font-weight:900;color:#2c5ba3;margin-bottom:16px}
     .logo-fb span{color:#2e7d1e}
-    .hdr-title{font-size:.82rem;font-weight:700;color:#777}
-    .hdr-right{display:flex;gap:8px;flex-wrap:wrap}
+    .login-div{width:50px;height:3px;background:linear-gradient(90deg,#2c5ba3,#2e7d1e);border-radius:2px;margin:0 auto 16px}
+    .login-title{font-size:1rem;font-weight:800;color:#2c5ba3;margin-bottom:6px}
+    .login-sub{font-size:.85rem;color:#aaa;margin-bottom:28px}
 
-    /* ── BUTTONS ── */
-    .btn{padding:9px 18px;border:none;border-radius:10px;font-size:.88rem;cursor:pointer;
-         font-weight:700;transition:opacity .15s,transform .1s;font-family:inherit}
-    .btn:hover{opacity:.85;transform:translateY(-1px)}
+    .pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
+    .pin-dot{
+      width:50px;height:56px;border:2px solid #e0e0e0;border-radius:12px;
+      font-size:1.6rem;text-align:center;letter-spacing:0;font-weight:700;
+      color:#333;outline:none;transition:border-color .15s;background:#fafafa;
+      caret-color:transparent;
+    }
+    .pin-dot:focus{border-color:#6c63ff;background:#f5f3ff}
+
+    .login-btn{
+      width:100%;padding:13px;background:#6c63ff;color:#fff;
+      border:none;border-radius:12px;font-size:1rem;font-weight:700;
+      cursor:pointer;font-family:inherit;transition:opacity .15s;margin-bottom:10px;
+    }
+    .login-btn:hover{opacity:.88}
+    .login-err{font-size:.85rem;color:#f5576c;min-height:20px;margin-top:4px}
+
+    /* ══ APP ═══════════════════════════════════════════════════ */
+    #app{display:none;flex-direction:column;min-height:100vh}
+
+    /* HEADER */
+    header{
+      background:#fff;padding:12px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 2px 8px rgba(0,0,0,.09);position:sticky;top:0;z-index:99;
+      flex-wrap:wrap;gap:10px;
+    }
+    .hdr-brand{display:flex;align-items:center;gap:10px}
+    .hdr-logo{height:38px;object-fit:contain}
+    .hdr-title{font-size:.84rem;font-weight:700;color:#888}
+    .hdr-btns{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{padding:9px 18px;border:none;border-radius:10px;font-size:.88rem;font-weight:700;
+         cursor:pointer;font-family:inherit;transition:opacity .15s}
+    .btn:hover{opacity:.85}
     .btn-primary{background:#6c63ff;color:#fff}
-    .btn-success{background:#22c55e;color:#fff}
     .btn-ghost{background:transparent;border:2px solid #ddd;color:#888}
 
-    /* ── FILTER BAR ── */
-    .filter-wrap{background:#fff;border-bottom:1px solid #e5e7eb;padding:12px 24px;
-                 display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-    .filter-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-    .filter-label{font-size:.82rem;font-weight:700;color:#888;white-space:nowrap}
-    .chip{padding:5px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;
-          cursor:pointer;font-size:.82rem;font-weight:600;color:#666;
-          transition:all .15s;font-family:inherit}
-    .chip:hover{border-color:#6c63ff;color:#6c63ff}
-    .chip.on     {border-color:#6c63ff;background:#6c63ff;color:#fff}
-    .chip.on-done{border-color:#22c55e;background:#22c55e;color:#fff}
+    /* FILTER BAR */
+    .fbar{
+      background:#fff;border-bottom:1px solid #e5e7eb;
+      padding:10px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+    }
+    .flabel{font-size:.8rem;font-weight:700;color:#aaa}
+    .sep{width:1px;height:20px;background:#e0e0e0;margin:0 4px;flex-shrink:0}
+    .fc{
+      padding:5px 14px;border:2px solid #e0e0e0;border-radius:20px;
+      background:#fff;cursor:pointer;font-size:.82rem;font-weight:600;
+      color:#777;transition:all .15s;font-family:inherit;
+    }
+    .fc:hover{border-color:#6c63ff;color:#6c63ff}
+    .fc.act     {border-color:#6c63ff;background:#6c63ff;color:#fff}
+    .fc.act-open{border-color:#f59e0b;background:#f59e0b;color:#fff}
+    .fc.act-done{border-color:#22c55e;background:#22c55e;color:#fff}
 
-    /* ── NOTES GRID ── */
-    .grid-wrap{padding:20px 24px 60px}
-    .count-line{font-size:.82rem;color:#bbb;margin-bottom:14px}
-    .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+    /* GRID */
+    .wrap{padding:18px 20px 60px;flex:1}
+    .info{font-size:.8rem;color:#bbb;margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
 
-    /* ── NOTE CARD ── */
-    .card{border-radius:16px;padding:18px 20px 14px;box-shadow:0 3px 12px rgba(0,0,0,.07);
-          display:flex;flex-direction:column;gap:0;transition:transform .15s,box-shadow .15s,opacity .2s}
-    .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
-    .nc-0{background:#fff9c4}.nc-1{background:#fce4ec}.nc-2{background:#e3f2fd}
-    .nc-3{background:#e8f5e9}.nc-4{background:#fff3e0}.nc-5{background:#f3e5f5}
-    /* done state */
-    .card.is-done{opacity:.6;filter:grayscale(.35)}
-    .card.is-done .card-text{text-decoration:line-through;color:#aaa}
+    /* CARD */
+    .card{
+      background:#fff;border-radius:14px;overflow:hidden;
+      box-shadow:0 2px 10px rgba(0,0,0,.07);
+      display:flex;flex-direction:column;
+      border-top:5px solid #e0e0e0;
+      transition:transform .15s,box-shadow .15s;
+    }
+    .card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.11)}
+    .card.c-open{border-top-color:#f59e0b}
+    .card.c-done{border-top-color:#22c55e;opacity:.68}
 
-    /* card top row */
-    .card-top{display:flex;align-items:center;justify-content:space-between;
-              margin-bottom:8px;flex-wrap:wrap;gap:6px}
-    .resp-badge{font-size:.75rem;font-weight:700;padding:3px 11px;border-radius:10px;color:#fff;white-space:nowrap}
+    .card-body{padding:14px 16px 8px;flex:1}
+    .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+
+    .status-badge{font-size:.75rem;font-weight:800;padding:3px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:4px}
+    .sb-open{background:#fff7ed;color:#d97706;border:1.5px solid #fcd34d}
+    .sb-done{background:#f0fdf4;color:#16a34a;border:1.5px solid #86efac}
+
+    .resp-badge{font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:8px;color:#fff;display:inline-flex;align-items:center;gap:4px}
     .rb-anna {background:#f5576c}
     .rb-dori {background:#4facfe}
     .rb-other{background:#f59e0b}
-    .rb-none {background:#ccc;color:#888}
+    .rb-none {background:#ccc;color:#666}
 
-    /* tags */
-    .card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+    .card-worker{font-size:.78rem;color:#666;font-weight:600;margin-bottom:6px}
+    .card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
     .ntag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:8px}
     .t-salary   {background:#fff3cd;color:#b45309;border:1px solid #fcd34d}
     .t-logistics{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
@@ -72,58 +120,50 @@
     .t-vacation {background:#dcfce7;color:#16a34a;border:1px solid #86efac}
     .t-custom   {background:#f3e8ff;color:#7c3aed;border:1px solid #c4b5fd}
 
-    .card-worker{font-size:.76rem;color:#555;font-weight:600;margin-bottom:6px}
-    .card-text{font-size:.93rem;color:#333;line-height:1.6;white-space:pre-wrap;
-               word-break:break-word;flex:1;margin-bottom:12px}
+    .card-text{font-size:.93rem;color:#333;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+    .card.c-done .card-text{text-decoration:line-through;color:#bbb}
 
-    /* card bottom */
-    .card-bottom{display:flex;align-items:center;justify-content:space-between;
-                 gap:8px;margin-top:auto}
-    .card-date{font-size:.68rem;color:#bbb}
-    .card-actions{display:flex;gap:6px;align-items:center}
+    .card-foot{
+      padding:10px 16px 12px;
+      display:flex;align-items:center;justify-content:space-between;
+      border-top:1px solid #f3f3f3;margin-top:10px;
+    }
+    .card-meta{font-size:.68rem;color:#ccc;line-height:1.5}
+    .card-actions{display:flex;gap:6px}
 
     /* DONE BUTTON */
-    .done-btn{border:none;border-radius:9px;padding:7px 14px;font-size:.82rem;
-              font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;
-              white-space:nowrap}
-    .done-btn.open{background:#dcfce7;color:#16a34a;border:2px solid #86efac}
-    .done-btn.open:hover{background:#bbf7d0}
-    .done-btn.done{background:#fee2e2;color:#dc2626;border:2px solid #fca5a5}
-    .done-btn.done:hover{background:#fecaca}
+    .dbtn{
+      border:none;border-radius:9px;padding:8px 16px;
+      font-size:.85rem;font-weight:800;cursor:pointer;
+      font-family:inherit;transition:all .15s;
+    }
+    .dbtn.do  {background:#dcfce7;color:#15803d;border:2px solid #86efac}
+    .dbtn.do:hover{background:#bbf7d0}
+    .dbtn.undo{background:#fee2e2;color:#dc2626;border:2px solid #fca5a5}
+    .dbtn.undo:hover{background:#fecaca}
+    .delbtn{background:none;border:none;cursor:pointer;font-size:.85rem;color:#ccc;padding:4px 8px;border-radius:7px;transition:all .15s;font-weight:700}
+    .delbtn:hover{color:#f5576c;background:#fff1f2}
 
-    .del-btn{background:none;border:none;cursor:pointer;font-size:.85rem;opacity:.3;
-             padding:4px 7px;border-radius:6px;transition:opacity .15s,background .15s;
-             font-weight:700;color:#555}
-    .del-btn:hover{opacity:1;background:rgba(0,0,0,.08)}
+    /* EMPTY */
+    .empty{text-align:center;padding:70px 20px;color:#ccc;grid-column:1/-1}
+    .empty-icon{font-size:2.8rem;margin-bottom:12px}
 
-    /* empty */
-    .empty{text-align:center;padding:60px 20px;color:#ccc;grid-column:1/-1}
-    .empty-icon{font-size:2.5rem;margin-bottom:10px}
-    .empty p{font-size:.95rem}
-
-    /* ── MODAL ── */
-    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
-             z-index:200;align-items:center;justify-content:center;padding:20px}
+    /* MODAL */
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:20px}
     .overlay.open{display:flex}
-    .modal{background:#fff;border-radius:18px;padding:30px;width:100%;max-width:480px;
-           box-shadow:0 20px 60px rgba(0,0,0,.2);animation:up .2s ease;
-           max-height:90vh;overflow-y:auto}
-    @keyframes up{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .modal h2{font-size:1.15rem;color:#333;margin-bottom:22px;font-weight:800}
-    .fg{margin-bottom:15px}
-    label{display:block;font-size:.88rem;font-weight:600;color:#555;margin-bottom:5px}
-    .opt{font-weight:400;color:#bbb;font-size:.78rem;margin-right:4px}
-    input[type=text],textarea,select{width:100%;padding:10px 13px;border:2px solid #e5e7eb;
-      border-radius:10px;font-size:.92rem;font-family:inherit;direction:rtl;outline:none;
-      color:#333;transition:border-color .15s;background:#fff}
-    input:focus,textarea:focus,select:focus{border-color:#6c63ff}
-    textarea{resize:vertical;min-height:90px}
-    .mfooter{display:flex;gap:10px;margin-top:22px}
+    .modal{background:#fff;border-radius:18px;padding:28px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.22);animation:pop .2s ease;max-height:92vh;overflow-y:auto}
+    @keyframes pop{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal h2{font-size:1.1rem;font-weight:800;color:#333;margin-bottom:20px}
+    .fg{margin-bottom:14px}
+    label{display:block;font-size:.86rem;font-weight:600;color:#555;margin-bottom:5px}
+    .opt{font-weight:400;color:#bbb;font-size:.76rem;margin-right:4px}
+    input[type=text],textarea,select{width:100%;padding:10px 12px;border:2px solid #e5e7eb;border-radius:10px;font-size:.9rem;font-family:inherit;direction:rtl;outline:none;color:#333;transition:border-color .15s;background:#fff}
+    input[type=text]:focus,textarea:focus,select:focus{border-color:#6c63ff}
+    textarea{resize:vertical;min-height:85px}
+    .mfoot{display:flex;gap:10px;margin-top:20px}
 
-    /* tag selector */
-    .tag-sel{display:flex;flex-wrap:wrap;gap:7px}
-    .ttog{padding:5px 13px;border:2px solid #e0e0e0;border-radius:16px;background:#fff;
-          cursor:pointer;font-size:.82rem;font-weight:600;color:#666;transition:all .15s;font-family:inherit}
+    .tag-sel{display:flex;flex-wrap:wrap;gap:6px}
+    .ttog{padding:5px 12px;border:2px solid #e0e0e0;border-radius:16px;background:#fff;cursor:pointer;font-size:.8rem;font-weight:600;color:#666;transition:all .15s;font-family:inherit}
     .ttog:hover{border-color:#6c63ff;color:#6c63ff}
     .ttog.on-salary   {background:#fef3c7;border-color:#f59e0b;color:#b45309}
     .ttog.on-logistics{background:#dbeafe;border-color:#3b82f6;color:#1d4ed8}
@@ -133,409 +173,363 @@
     .ct-wrap{margin-top:8px;display:none}
     .ct-wrap.show{display:block}
 
-    /* export */
-    .exp-list{display:flex;flex-direction:column;gap:10px;margin:16px 0}
-    .exp-row{padding:13px 16px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;
-             display:flex;align-items:center;gap:12px;transition:all .15s}
-    .exp-row:hover{border-color:#6c63ff;background:#f5f3ff}
-    .exp-row .ei{font-size:1.4rem}
-    .exp-row strong{display:block;font-size:.92rem;color:#333}
-    .exp-row small{font-size:.78rem;color:#999}
-
-    @media(max-width:600px){
-      header{padding:12px 16px}
-      .filter-wrap{padding:10px 16px}
-      .grid-wrap{padding:16px 16px 50px}
-      .notes-grid{grid-template-columns:1fr}
-      .done-btn{padding:7px 10px;font-size:.78rem}
+    @media(max-width:540px){
+      .wrap{padding:14px 14px 50px}
+      .grid{grid-template-columns:1fr}
+      .fbar{padding:8px 12px;gap:6px}
+      header{padding:10px 14px}
+      .login-box{padding:34px 28px 40px}
+      .pin-dot{width:44px;height:50px;font-size:1.4rem}
     }
   </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══════════════════════════════════════════════════ -->
-<header>
-  <div class="hdr-left">
-    <img src="logo.png" class="hdr-logo" alt="Project Pro"
+<!-- ══ LOGIN ════════════════════════════════════════════════════ -->
+<div id="login">
+  <div class="login-box">
+    <img src="logo.png" class="login-logo" alt="Project Pro"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
     <div class="logo-fb">Project <span>Pro</span></div>
-    <span class="hdr-title">מנופאים — פתקים ומשימות</span>
-  </div>
-  <div class="hdr-right">
-    <button class="btn btn-primary" onclick="openAdd()">+ פתק חדש</button>
-    <button class="btn btn-success" onclick="openExport()">ייצוא לאקסל</button>
-  </div>
-</header>
+    <div class="login-div"></div>
+    <div class="login-title">מנופאים — פתקים ומשימות</div>
+    <div class="login-sub">הכנס קוד גישה להמשך</div>
 
-<!-- ══ FILTERS ══════════════════════════════════════════════════ -->
-<div class="filter-wrap">
-  <div class="filter-group">
-    <span class="filter-label">מטפל:</span>
-    <button class="chip on"  id="f-all"   onclick="setF('resp','הכל',this)">הכל</button>
-    <button class="chip"     id="f-anna"  onclick="setF('resp','אנה',this)">אנה</button>
-    <button class="chip"     id="f-dori"  onclick="setF('resp','דורי',this)">דורי</button>
-    <button class="chip"     id="f-other" onclick="setF('resp','אחר',this)">אחר</button>
-    <button class="chip"     id="f-none"  onclick="setF('resp','ללא',this)">לא שויך</button>
-  </div>
-  <div class="filter-group">
-    <span class="filter-label">סטטוס:</span>
-    <button class="chip on"      onclick="setF('done','הכל',this)">הכל</button>
-    <button class="chip"         onclick="setF('done','פתוח',this)">פתוח</button>
-    <button class="chip on-done" onclick="setF('done','טופל',this)" style="border-color:#e0e0e0;background:#fff;color:#666">טופל ✅</button>
-  </div>
-</div>
-
-<!-- ══ GRID ═════════════════════════════════════════════════════ -->
-<div class="grid-wrap">
-  <div id="count-line" class="count-line"></div>
-  <div id="notes-grid" class="notes-grid"></div>
-</div>
-
-<!-- ══ ADD MODAL ════════════════════════════════════════════════ -->
-<div id="add-modal" class="overlay">
-  <div class="modal">
-    <h2>+ פתק חדש</h2>
-
-    <div class="fg">
-      <label>תוכן הפתק <span style="color:#f5576c">*</span></label>
-      <textarea id="n-text" placeholder="כתוב כאן..."></textarea>
+    <div class="pin-row">
+      <input class="pin-dot" type="password" maxlength="1" inputmode="numeric" id="p0" oninput="pinInput(0)"/>
+      <input class="pin-dot" type="password" maxlength="1" inputmode="numeric" id="p1" oninput="pinInput(1)"/>
+      <input class="pin-dot" type="password" maxlength="1" inputmode="numeric" id="p2" oninput="pinInput(2)"/>
+      <input class="pin-dot" type="password" maxlength="1" inputmode="numeric" id="p3" oninput="pinInput(3)"/>
     </div>
 
+    <div id="login-err" class="login-err"></div>
+    <button class="login-btn" onclick="checkPin()">כניסה</button>
+  </div>
+</div>
+
+<!-- ══ APP ══════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <header>
+    <div class="hdr-brand">
+      <img src="logo.png" class="hdr-logo" alt="Project Pro"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <div class="logo-fb" style="display:none;font-size:1rem;font-weight:900;color:#2c5ba3">Project <span style="color:#2e7d1e">Pro</span></div>
+      <span class="hdr-title">מנופאים — פתקים ומשימות</span>
+    </div>
+    <div class="hdr-btns">
+      <button class="btn btn-primary" onclick="openAdd()">＋ פתק חדש</button>
+      <button class="btn btn-ghost"   onclick="logout()">יציאה</button>
+    </div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <div class="fbar">
+    <span class="flabel">מטפל:</span>
+    <button class="fc act" onclick="filt('r','הכל',this)">הכל</button>
+    <button class="fc"     onclick="filt('r','אנה',this)">אנה</button>
+    <button class="fc"     onclick="filt('r','דורי',this)">דורי</button>
+    <button class="fc"     onclick="filt('r','אחר',this)">אחר</button>
+    <button class="fc"     onclick="filt('r','ללא',this)">לא שויך</button>
+    <div class="sep"></div>
+    <span class="flabel">סטטוס:</span>
+    <button class="fc act"      id="fd-all"  onclick="filt('d','הכל',this)">הכל</button>
+    <button class="fc"          id="fd-open" onclick="filt('d','פתוח',this)">⏳ לא טופל</button>
+    <button class="fc"          id="fd-done" onclick="filt('d','טופל',this)">✅ טופל</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="wrap">
+    <div id="info" class="info"></div>
+    <div id="grid" class="grid">
+      <div class="empty"><div class="empty-icon">⏳</div><p>טוען...</p></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ══ ADD MODAL ════════════════════════════════════════════════ -->
+<div id="modal" class="overlay">
+  <div class="modal">
+    <h2>＋ פתק חדש</h2>
+    <div class="fg">
+      <label>תוכן הפתק <span style="color:#f5576c">*</span></label>
+      <textarea id="m-text" placeholder="כתוב כאן..."></textarea>
+    </div>
     <div class="fg">
       <label>מי מטפל <span class="opt">(אופציונלי)</span></label>
-      <select id="n-resp" onchange="toggleCR(this.value)">
+      <select id="m-resp" onchange="crToggle(this.value)">
         <option value="">— לא שויך —</option>
         <option value="אנה">אנה</option>
         <option value="דורי">דורי</option>
-        <option value="אחר">אחר</option>
+        <option value="אחר">אחר (כתוב שם)</option>
       </select>
-      <div id="cr-wrap" style="display:none;margin-top:8px">
-        <input type="text" id="n-cr" placeholder="שם המטפל..."/>
+      <div id="cr-box" style="display:none;margin-top:8px">
+        <input id="m-cr" type="text" placeholder="שם המטפל..."/>
       </div>
     </div>
-
     <div class="fg">
       <label>שם העובד <span class="opt">(אופציונלי)</span></label>
-      <input type="text" id="n-worker" placeholder="לדוגמה: יוסי כהן..."/>
+      <input id="m-worker" type="text" placeholder="לדוגמה: יוסי כהן"/>
     </div>
-
     <div class="fg">
       <label>תיוגים <span class="opt">(אופציונלי)</span></label>
       <div class="tag-sel">
-        <button type="button" class="ttog" data-tag="salary"    onclick="toggleTag(this)">שכר</button>
-        <button type="button" class="ttog" data-tag="logistics" onclick="toggleTag(this)">לוגיסטיקה</button>
-        <button type="button" class="ttog" data-tag="sick"      onclick="toggleTag(this)">מחלה</button>
-        <button type="button" class="ttog" data-tag="vacation"  onclick="toggleTag(this)">חופש</button>
-        <button type="button" class="ttog" data-tag="custom"    onclick="toggleTag(this)">+ אחר</button>
+        <button type="button" class="ttog" data-tag="salary"    onclick="ttog(this)">שכר</button>
+        <button type="button" class="ttog" data-tag="logistics" onclick="ttog(this)">לוגיסטיקה</button>
+        <button type="button" class="ttog" data-tag="sick"      onclick="ttog(this)">מחלה</button>
+        <button type="button" class="ttog" data-tag="vacation"  onclick="ttog(this)">חופש</button>
+        <button type="button" class="ttog" data-tag="custom"    onclick="ttog(this)">+ אחר</button>
       </div>
       <div id="ct-wrap" class="ct-wrap">
-        <input type="text" id="ct-text" placeholder="שם התיוג..."/>
+        <input id="ct-val" type="text" placeholder="שם התיוג..."/>
       </div>
     </div>
-
     <div class="fg">
       <label>הוסיף <span class="opt">(אופציונלי)</span></label>
-      <input type="text" id="n-author" placeholder="שם מוסיף הפתק..."/>
+      <input id="m-author" type="text" placeholder="מי מוסיף את הפתק?"/>
     </div>
-
-    <div class="mfooter">
-      <button class="btn btn-primary" onclick="saveNote()">שמור פתק</button>
-      <button class="btn btn-ghost"   onclick="closeModal('add-modal')">ביטול</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ EXPORT MODAL ══════════════════════════════════════════════ -->
-<div id="export-modal" class="overlay">
-  <div class="modal">
-    <h2>ייצוא לאקסל</h2>
-    <div id="exp-list" class="exp-list"></div>
-    <div class="mfooter">
-      <button class="btn btn-ghost" onclick="closeModal('export-modal')">סגור</button>
+    <div class="mfoot">
+      <button class="btn btn-primary" onclick="save()">שמור פתק</button>
+      <button class="btn btn-ghost"   onclick="closeM()">ביטול</button>
     </div>
   </div>
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   STATE
-══════════════════════════════════════════ */
-let FR = 'הכל';   // filter responsible
-let FD = 'הכל';   // filter done
+const PIN = '1111';
+let FR = 'הכל', FD = 'הכל';
+const TLABEL = {salary:'שכר',logistics:'לוגיסטיקה',sick:'מחלה',vacation:'חופש'};
+const TCLS   = {salary:'t-salary',logistics:'t-logistics',sick:'t-sick',vacation:'t-vacation'};
 
-const COLORS = ['nc-0','nc-1','nc-2','nc-3','nc-4','nc-5'];
-const TLABEL = {salary:'שכר', logistics:'לוגיסטיקה', sick:'מחלה', vacation:'חופש'};
-const TCLS   = {salary:'t-salary', logistics:'t-logistics', sick:'t-sick', vacation:'t-vacation'};
-
-/* ══════════════════════════════════════════
-   API
-══════════════════════════════════════════ */
-async function api(method, path, body) {
-  const res = await fetch(path, {
-    method,
-    headers: body ? {'Content-Type':'application/json'} : {},
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+/* ── PIN LOGIN ─────────────────────────────────────────── */
+function pinInput(i) {
+  const v = document.getElementById('p'+i).value;
+  if (v && i < 3) document.getElementById('p'+(i+1)).focus();
+  document.getElementById('login-err').textContent = '';
+  // auto-submit when all 4 filled
+  const pin = [0,1,2,3].map(j=>document.getElementById('p'+j).value).join('');
+  if (pin.length === 4) setTimeout(checkPin, 80);
 }
-
-/* ══════════════════════════════════════════
-   LOAD
-══════════════════════════════════════════ */
-async function load() {
-  try {
-    window._N = await api('GET', '/api/notes');
-    render();
-  } catch(e) { console.error(e); }
-}
-
-/* ══════════════════════════════════════════
-   FILTERS
-══════════════════════════════════════════ */
-function setF(type, val, btn) {
-  if (type === 'resp') {
-    FR = val;
-    btn.closest('.filter-group').querySelectorAll('.chip').forEach(b => {
-      b.classList.remove('on','on-done');
-    });
-    btn.classList.add('on');
+function checkPin() {
+  const pin = [0,1,2,3].map(j=>document.getElementById('p'+j).value).join('');
+  if (pin === PIN) {
+    localStorage.setItem('pp_auth','1');
+    showApp();
   } else {
-    FD = val;
-    btn.closest('.filter-group').querySelectorAll('.chip').forEach(b => {
-      b.classList.remove('on','on-done');
+    document.getElementById('login-err').textContent = 'קוד שגוי, נסה שוב';
+    [0,1,2,3].forEach(j=>document.getElementById('p'+j).value='');
+    document.getElementById('p0').focus();
+  }
+}
+// Enter key on any pin field
+document.querySelectorAll('.pin-dot').forEach(el =>
+  el.addEventListener('keydown', e => { if (e.key==='Enter') checkPin(); })
+);
+
+function showApp() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('app').style.display   = 'flex';
+  load();
+}
+function logout() {
+  localStorage.removeItem('pp_auth');
+  document.getElementById('app').style.display   = 'none';
+  document.getElementById('login').style.display = 'flex';
+  [0,1,2,3].forEach(j=>document.getElementById('p'+j).value='');
+  document.getElementById('login-err').textContent = '';
+  document.getElementById('p0').focus();
+}
+
+/* ── API ───────────────────────────────────────────────── */
+async function req(m,u,b){
+  const r=await fetch(u,{method:m,headers:b?{'Content-Type':'application/json'}:{},body:b?JSON.stringify(b):undefined});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+
+/* ── LOAD ──────────────────────────────────────────────── */
+async function load(){
+  try{ window._N=await req('GET','/api/notes'); render(); }
+  catch(e){ console.error(e); }
+}
+
+/* ── FILTERS ───────────────────────────────────────────── */
+function filt(type,val,btn){
+  if(type==='r'){
+    FR=val;
+    btn.closest('.fbar').querySelectorAll('.fc').forEach(b=>{
+      const t=b.textContent.trim();
+      if(['הכל','אנה','דורי','אחר','לא שויך'].includes(t)){
+        b.classList.remove('act','act-open','act-done');
+      }
     });
-    btn.classList.add(val === 'טופל' ? 'on-done' : 'on');
+    btn.classList.add('act');
+  } else {
+    FD=val;
+    ['fd-all','fd-open','fd-done'].forEach(id=>{
+      const b=document.getElementById(id);
+      b.classList.remove('act','act-open','act-done');
+    });
+    if(val==='הכל')  btn.classList.add('act');
+    else if(val==='פתוח') btn.classList.add('act-open');
+    else btn.classList.add('act-done');
   }
   render();
 }
 
-/* ══════════════════════════════════════════
-   RENDER
-══════════════════════════════════════════ */
-function render() {
-  let list = [...(window._N || [])];
+/* ── RENDER ────────────────────────────────────────────── */
+function render(){
+  let list=[...(window._N||[])];
+  if(FR==='אנה')   list=list.filter(n=>n.responsible==='אנה');
+  else if(FR==='דורי')   list=list.filter(n=>n.responsible==='דורי');
+  else if(FR==='אחר')    list=list.filter(n=>n.responsible==='אחר');
+  else if(FR==='לא שויך'||FR==='ללא') list=list.filter(n=>!n.responsible);
+  if(FD==='פתוח')  list=list.filter(n=>!n.done);
+  else if(FD==='טופל') list=list.filter(n=>!!n.done);
 
-  // filter by responsible
-  if      (FR === 'אנה')  list = list.filter(n => n.responsible === 'אנה');
-  else if (FR === 'דורי') list = list.filter(n => n.responsible === 'דורי');
-  else if (FR === 'אחר')  list = list.filter(n => n.responsible === 'אחר');
-  else if (FR === 'ללא')  list = list.filter(n => !n.responsible);
+  // open notes first (newest), done at bottom
+  const open=[...list.filter(n=>!n.done)].reverse();
+  const done=[...list.filter(n=>!!n.done)].reverse();
+  list=[...open,...done];
 
-  // filter by done
-  if      (FD === 'פתוח') list = list.filter(n => !n.done);
-  else if (FD === 'טופל') list = list.filter(n => n.done);
+  document.getElementById('info').textContent=list.length?`${list.length} פתקים`:'';
+  const grid=document.getElementById('grid');
 
-  // open first, then done
-  const open = list.filter(n => !n.done).reverse();
-  const done = list.filter(n =>  n.done).reverse();
-  list = [...open, ...done];
-
-  const cnt = document.getElementById('count-line');
-  cnt.textContent = list.length ? `${list.length} פתקים` : '';
-
-  const grid = document.getElementById('notes-grid');
-  if (!list.length) {
-    grid.innerHTML = `<div class="empty">
-      <div class="empty-icon">🗒️</div>
-      <p>אין פתקים להצגה.<br>לחץ "+ פתק חדש" להוספה.</p>
-    </div>`;
+  if(!list.length){
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">🗒️</div><p>אין פתקים להצגה</p></div>`;
     return;
   }
 
-  grid.innerHTML = list.map(n => {
-    const cc  = COLORS[n.colorIdx % 6];
-    const rdn = n.responsible === 'אחר' && n.customResp ? n.customResp : n.responsible;
-    const rbadge =
-      n.responsible === 'אנה'  ? `<span class="resp-badge rb-anna">מטפל: אנה</span>`
-    : n.responsible === 'דורי' ? `<span class="resp-badge rb-dori">מטפל: דורי</span>`
-    : n.responsible === 'אחר'  ? `<span class="resp-badge rb-other">מטפל: ${esc(rdn)}</span>`
-    :                            `<span class="resp-badge rb-none">לא שויך</span>`;
+  grid.innerHTML=list.map(n=>{
+    const isDone=!!n.done;
+    const rdn=n.responsible==='אחר'&&n.customResp?n.customResp:n.responsible;
 
-    const tags = (n.tags || []).map(t =>
+    const rbadge=
+      n.responsible==='אנה'  ?`<span class="resp-badge rb-anna">👤 אנה</span>`
+     :n.responsible==='דורי' ?`<span class="resp-badge rb-dori">👤 דורי</span>`
+     :n.responsible==='אחר'  ?`<span class="resp-badge rb-other">👤 ${esc(rdn)}</span>`
+     :`<span class="resp-badge rb-none">לא שויך</span>`;
+
+    const sbadge=isDone
+      ?`<span class="status-badge sb-done">✅ טופל</span>`
+      :`<span class="status-badge sb-open">⏳ לא טופל</span>`;
+
+    const tags=(n.tags||[]).map(t=>
       `<span class="ntag ${t.type==='custom'?'t-custom':TCLS[t.type]||'t-custom'}">${esc(t.label)}</span>`
     ).join('');
 
-    const isDone = !!n.done;
-    const doneBtn = isDone
-      ? `<button class="done-btn done" onclick="toggleDone('${n.id}', false)">↩ בטל טיפול</button>`
-      : `<button class="done-btn open" onclick="toggleDone('${n.id}', true)">✅ טופל</button>`;
+    const doneBtn=isDone
+      ?`<button class="dbtn undo" onclick="toggle('${n.id}',false)">↩ בטל</button>`
+      :`<button class="dbtn do"   onclick="toggle('${n.id}',true)">✅ טופל</button>`;
 
-    return `
-      <div class="card ${cc}${isDone ? ' is-done' : ''}" id="card-${n.id}">
-        <div class="card-top">
-          ${rbadge}
-          ${n.author ? `<span style="font-size:.7rem;color:#aaa">נוסף ע"י ${esc(n.author)}</span>` : ''}
-        </div>
-        ${n.worker ? `<div class="card-worker">עובד: ${esc(n.worker)}</div>` : ''}
-        ${tags     ? `<div class="card-tags">${tags}</div>` : ''}
-        <div class="card-text">${esc(n.text)}</div>
-        <div class="card-bottom">
-          <span class="card-date">${fmt(n.created)}</span>
-          <div class="card-actions">
-            ${doneBtn}
-            <button class="del-btn" onclick="del('${n.id}')">✕</button>
-          </div>
-        </div>
-      </div>`;
+    return`
+<div class="card ${isDone?'c-done':'c-open'}" id="c-${n.id}">
+  <div class="card-body">
+    <div class="card-head">
+      ${sbadge}
+      ${rbadge}
+    </div>
+    ${n.worker?`<div class="card-worker">👷 ${esc(n.worker)}</div>`:''}
+    ${tags?`<div class="card-tags">${tags}</div>`:''}
+    <div class="card-text">${esc(n.text)}</div>
+  </div>
+  <div class="card-foot">
+    <div class="card-meta">
+      ${fmt(n.created)}
+      ${n.author?`<br>הוסיף: ${esc(n.author)}`:''}
+    </div>
+    <div class="card-actions">
+      ${doneBtn}
+      <button class="delbtn" onclick="delNote('${n.id}')">✕</button>
+    </div>
+  </div>
+</div>`;
   }).join('');
 }
 
-/* ══════════════════════════════════════════
-   ACTIONS
-══════════════════════════════════════════ */
-async function toggleDone(id, done) {
-  try {
-    await api('PATCH', `/api/notes/${id}`, { done });
-    const n = (window._N || []).find(x => x.id === id);
-    if (n) { n.done = done; render(); }
-  } catch(e) { alert('שגיאה בעדכון'); }
+/* ── TOGGLE DONE ───────────────────────────────────────── */
+async function toggle(id,done){
+  try{
+    await req('PATCH',`/api/notes/${id}`,{done});
+    const n=(window._N||[]).find(x=>x.id===id);
+    if(n){n.done=done;render();}
+  }catch(e){alert('שגיאה בעדכון');}
 }
 
-async function del(id) {
-  if (!confirm('למחוק פתק זה?')) return;
-  try {
-    await api('DELETE', `/api/notes/${id}`);
-    window._N = (window._N || []).filter(n => n.id !== id);
+/* ── DELETE ────────────────────────────────────────────── */
+async function delNote(id){
+  if(!confirm('למחוק פתק זה?'))return;
+  try{
+    await req('DELETE',`/api/notes/${id}`);
+    window._N=(window._N||[]).filter(n=>n.id!==id);
     render();
-  } catch(e) { alert('שגיאה במחיקה'); }
+  }catch(e){alert('שגיאה במחיקה');}
 }
 
-/* ══════════════════════════════════════════
-   ADD NOTE
-══════════════════════════════════════════ */
-function openAdd() {
-  ['n-text','n-cr','n-worker','n-author'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('n-resp').value = '';
-  document.getElementById('cr-wrap').style.display = 'none';
-  resetTags();
-  document.getElementById('add-modal').classList.add('open');
-  setTimeout(() => document.getElementById('n-text').focus(), 80);
+/* ── ADD MODAL ─────────────────────────────────────────── */
+function openAdd(){
+  ['m-text','m-cr','m-worker','m-author'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('m-resp').value='';
+  document.getElementById('cr-box').style.display='none';
+  document.querySelectorAll('.ttog').forEach(b=>b.className='ttog');
+  document.getElementById('ct-wrap').classList.remove('show');
+  document.getElementById('ct-val').value='';
+  document.getElementById('modal').classList.add('open');
+  setTimeout(()=>document.getElementById('m-text').focus(),80);
 }
+function closeM(){document.getElementById('modal').classList.remove('open');}
 
-async function saveNote() {
-  const text = document.getElementById('n-text').value.trim();
-  if (!text) { shake('n-text'); return; }
-  const responsible = document.getElementById('n-resp').value;
-  const customResp  = document.getElementById('n-cr').value.trim();
-  const worker      = document.getElementById('n-worker').value.trim();
-  const author      = document.getElementById('n-author').value.trim();
-  const tags        = getSelectedTags();
-  try {
-    const note = await api('POST', '/api/notes', {text, responsible, customResp, worker, tags, author});
-    window._N = window._N || [];
-    window._N.push(note);
-    render();
-    closeModal('add-modal');
-  } catch(e) { alert('שגיאה בשמירת פתק'); }
-}
-
-/* ══════════════════════════════════════════
-   TAGS
-══════════════════════════════════════════ */
-function toggleTag(btn) {
-  const tag = btn.dataset.tag;
-  btn.classList.toggle('on-' + tag);
-  if (tag === 'custom')
-    document.getElementById('ct-wrap').classList.toggle('show', btn.classList.contains('on-custom'));
-}
-function getSelectedTags() {
-  const tags = [];
-  document.querySelectorAll('.ttog').forEach(btn => {
-    const tag = btn.dataset.tag;
-    if (btn.classList.contains('on-' + tag)) {
-      if (tag === 'custom') {
-        const v = document.getElementById('ct-text').value.trim();
-        if (v) tags.push({type:'custom', label:v});
-      } else tags.push({type:tag, label:TLABEL[tag]});
+async function save(){
+  const text=document.getElementById('m-text').value.trim();
+  if(!text){shake('m-text');return;}
+  const responsible=document.getElementById('m-resp').value;
+  const customResp =document.getElementById('m-cr').value.trim();
+  const worker     =document.getElementById('m-worker').value.trim();
+  const author     =document.getElementById('m-author').value.trim();
+  const tags=[];
+  document.querySelectorAll('.ttog').forEach(b=>{
+    const tag=b.dataset.tag;
+    if(b.classList.contains('on-'+tag)){
+      if(tag==='custom'){const v=document.getElementById('ct-val').value.trim();if(v)tags.push({type:'custom',label:v});}
+      else tags.push({type:tag,label:TLABEL[tag]});
     }
   });
-  return tags;
-}
-function resetTags() {
-  document.querySelectorAll('.ttog').forEach(b => b.className = 'ttog');
-  const ct = document.getElementById('ct-wrap');
-  if (ct) ct.classList.remove('show');
-  document.getElementById('ct-text').value = '';
-}
-function toggleCR(val) {
-  document.getElementById('cr-wrap').style.display = val === 'אחר' ? 'block' : 'none';
-  if (val !== 'אחר') document.getElementById('n-cr').value = '';
+  try{
+    const note=await req('POST','/api/notes',{text,responsible,customResp,worker,tags,author});
+    window._N=window._N||[];
+    window._N.push(note);
+    render();
+    closeM();
+  }catch(e){alert('שגיאה בשמירה');}
 }
 
-/* ══════════════════════════════════════════
-   EXPORT
-══════════════════════════════════════════ */
-function openExport() {
-  const N = window._N || [];
-  document.getElementById('exp-list').innerHTML = `
-    <div class="exp-row" onclick="expN('הכל')">
-      <span class="ei">📝</span><div><strong>כל הפתקים (${N.length})</strong></div>
-    </div>
-    <div class="exp-row" onclick="expN('פתוח')">
-      <span class="ei">🔵</span><div><strong>פתקים פתוחים (${N.filter(n=>!n.done).length})</strong></div>
-    </div>
-    <div class="exp-row" onclick="expN('טופל')">
-      <span class="ei">✅</span><div><strong>פתקים שטופלו (${N.filter(n=>n.done).length})</strong></div>
-    </div>
-    <div class="exp-row" onclick="expN('אנה')">
-      <span class="ei">👤</span><div><strong>מטפל אנה (${N.filter(n=>n.responsible==='אנה').length})</strong></div>
-    </div>
-    <div class="exp-row" onclick="expN('דורי')">
-      <span class="ei">👤</span><div><strong>מטפל דורי (${N.filter(n=>n.responsible==='דורי').length})</strong></div>
-    </div>`;
-  document.getElementById('export-modal').classList.add('open');
+/* ── TAGS ──────────────────────────────────────────────── */
+function ttog(btn){
+  const tag=btn.dataset.tag;
+  btn.classList.toggle('on-'+tag);
+  if(tag==='custom')
+    document.getElementById('ct-wrap').classList.toggle('show',btn.classList.contains('on-custom'));
+}
+function crToggle(v){
+  document.getElementById('cr-box').style.display=v==='אחר'?'block':'none';
+  if(v!=='אחר')document.getElementById('m-cr').value='';
 }
 
-function expN(f) {
-  let N = window._N || [];
-  if      (f === 'אנה')   N = N.filter(n => n.responsible === 'אנה');
-  else if (f === 'דורי')  N = N.filter(n => n.responsible === 'דורי');
-  else if (f === 'פתוח')  N = N.filter(n => !n.done);
-  else if (f === 'טופל')  N = N.filter(n =>  n.done);
+/* ── UTILS ─────────────────────────────────────────────── */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmt(iso){return new Date(iso).toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function shake(id){const el=document.getElementById(id);el.style.borderColor='#f5576c';el.focus();setTimeout(()=>el.style.borderColor='',1500);}
 
-  const rows = N.map(n => ({
-    'מי מטפל':  n.responsible === 'אחר' && n.customResp ? n.customResp : (n.responsible || '—'),
-    'שם עובד':  n.worker || '',
-    'תיוגים':   (n.tags||[]).map(t=>t.label).join(', '),
-    'תוכן':     n.text,
-    'סטטוס':    n.done ? 'טופל' : 'פתוח',
-    'הוסיף':    n.author || '',
-    'תאריך':    fmt(n.created)
-  }));
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
+document.getElementById('m-text').addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')save();});
 
-  const wb = XLSX.utils.book_new();
-  if (rows.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), 'פתקים');
-  XLSX.writeFile(wb, `פתקים_${f}.xlsx`);
-  closeModal('export-modal');
+/* ── INIT: check remembered session ───────────────────── */
+if(localStorage.getItem('pp_auth')==='1'){
+  showApp();
+} else {
+  document.getElementById('p0').focus();
 }
-
-/* ══════════════════════════════════════════
-   UTILS
-══════════════════════════════════════════ */
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function fmt(iso) {
-  return new Date(iso).toLocaleDateString('he-IL',
-    {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-function shake(id) {
-  const el = document.getElementById(id);
-  el.style.borderColor = '#f5576c'; el.focus();
-  setTimeout(() => el.style.borderColor = '', 1500);
-}
-
-document.querySelectorAll('.overlay').forEach(o =>
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); })
-);
-document.getElementById('n-text').addEventListener('keydown',
-  e => { if (e.ctrlKey && e.key === 'Enter') saveNote(); }
-);
-
-// init
-load();
 </script>
 </body>
 </html>
