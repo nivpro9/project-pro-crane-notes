@@ -28,7 +28,7 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-  const { text, responsible, worker, author } = req.body;
+  const { text, responsible, customResp, worker, tags, author } = req.body;
   if (!text || !author) return res.status(400).json({ error: 'missing fields' });
 
   const data = readData();
@@ -36,7 +36,9 @@ app.post('/api/notes', (req, res) => {
     id:          Date.now().toString(),
     text,
     responsible: responsible || '',
-    worker:      worker || '',
+    customResp:  customResp  || '',
+    worker:      worker      || '',
+    tags:        tags        || [],
     author,
     created:     new Date().toISOString(),
     colorIdx:    data.notes.length % 6
@@ -81,7 +83,8 @@ app.patch('/api/tasks/:id', (req, res) => {
   const data = readData();
   const task = data.tasks.find(t => t.id === req.params.id);
   if (!task) return res.status(404).json({ error: 'not found' });
-  if (req.body.status) task.status = req.body.status;
+  if (req.body.status !== undefined)       task.status       = req.body.status;
+  if (req.body.handlingNote !== undefined) task.handlingNote = req.body.handlingNote;
   writeData(data);
   res.json(task);
 });
