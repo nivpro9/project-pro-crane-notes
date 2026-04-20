@@ -9,7 +9,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;min-height:100vh;direction:rtl}
 
-    /* LOGIN */
+    /* ── LOGIN ── */
     #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(150deg,#1a3a7a,#1e5c1e)}
     .login-box{background:#fff;border-radius:20px;padding:44px 60px 50px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.28);max-width:420px;width:90%}
     .login-logo{width:210px;max-width:90%;margin:0 auto 18px;display:block;object-fit:contain}
@@ -22,50 +22,48 @@
     .user-btn:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
     .btn-anna{background:linear-gradient(135deg,#f093fb,#f5576c)}
     .btn-dori{background:linear-gradient(135deg,#4facfe,#00f2fe)}
-    .user-avatar{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#fff}
+    .user-avatar{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900}
 
-    /* APP */
+    /* ── HEADER ── */
     #app-screen{display:none;flex-direction:column;min-height:100vh}
     header{background:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;gap:12px;flex-wrap:wrap}
     .hdr-right{display:flex;align-items:center;gap:12px}
     .hdr-logo{height:42px;width:auto;display:block;object-fit:contain}
     .hdr-text{display:flex;flex-direction:column;gap:2px}
     .hdr-title{font-size:.78rem;font-weight:600;color:#999}
-    .user-badge{padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;align-self:flex-start}
+    .user-badge{padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px}
     .badge-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6)}
     .badge-anna{background:linear-gradient(135deg,#f093fb,#f5576c)}
     .badge-dori{background:linear-gradient(135deg,#4facfe,#00f2fe)}
     .hdr-left{display:flex;gap:8px;flex-wrap:wrap}
 
-    /* BUTTONS */
+    /* ── BUTTONS ── */
     .btn{padding:9px 18px;border:none;border-radius:10px;font-size:.88rem;cursor:pointer;font-weight:600;transition:opacity .15s,transform .1s;font-family:inherit}
     .btn:hover{opacity:.85;transform:translateY(-1px)}
     .btn-primary{background:#6c63ff;color:#fff}
     .btn-success{background:#22c55e;color:#fff}
     .btn-ghost{background:transparent;border:2px solid #ddd;color:#888}
     .btn-sm{padding:5px 12px;font-size:.8rem}
+    .btn-pink{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff}
+    .btn-blue{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff}
 
-    /* MAIN TABS */
-    .main-tabs{background:#fff;border-bottom:2px solid #e5e7eb;display:flex;padding:0 28px}
-    .main-tab{padding:13px 22px;border:none;background:none;cursor:pointer;font-size:.95rem;font-weight:600;color:#999;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;font-family:inherit}
-    .main-tab.active{color:#6c63ff;border-bottom-color:#6c63ff}
+    /* ── MAIN CONTENT ── */
+    .main-content{flex:1;padding:0 0 50px}
 
-    /* FILTER CHIPS */
-    .filter-bar{padding:14px 28px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    /* ── NOTES ── */
+    .section-header{padding:22px 28px 0;display:flex;align-items:center;gap:10px}
+    .section-title{font-size:1.05rem;font-weight:800;color:#444}
+    .section-title .cnt{font-size:.8rem;font-weight:600;color:#bbb;margin-right:4px}
+
+    .filter-bar{padding:12px 28px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .filter-label{color:#777;font-size:.85rem;font-weight:600}
     .chip{padding:5px 14px;border:2px solid #e0e0e0;border-radius:20px;background:#fff;cursor:pointer;font-size:.82rem;font-weight:600;color:#666;transition:all .15s;font-family:inherit}
     .chip:hover{border-color:#6c63ff;color:#6c63ff}
-    .chip.active      {border-color:#6c63ff;background:#6c63ff;color:#fff}
-    .chip.active-todo {border-color:#ef4444;background:#ef4444;color:#fff}
-    .chip.active-doing{border-color:#f59e0b;background:#f59e0b;color:#fff}
-    .chip.active-done {border-color:#22c55e;background:#22c55e;color:#fff}
+    .chip.active{border-color:#6c63ff;background:#6c63ff;color:#fff}
 
-    /* NOTES */
-    #section-notes{display:block}
-    .notes-area{padding:14px 28px 40px}
-    .section-count{color:#bbb;font-size:.82rem;margin-bottom:12px}
-    .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-    .note-card{border-radius:14px;padding:18px 20px;box-shadow:0 3px 12px rgba(0,0,0,.07);transition:transform .15s,box-shadow .15s;min-height:150px;display:flex;flex-direction:column}
+    .notes-area{padding:8px 28px 0}
+    .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .note-card{border-radius:14px;padding:18px 20px;box-shadow:0 3px 12px rgba(0,0,0,.07);transition:transform .15s,box-shadow .15s;min-height:140px;display:flex;flex-direction:column}
     .note-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
     .nc-0{background:#fff9c4}.nc-1{background:#fce4ec}.nc-2{background:#e3f2fd}
     .nc-3{background:#e8f5e9}.nc-4{background:#fff3e0}.nc-5{background:#f3e5f5}
@@ -87,55 +85,47 @@
     .del-btn{background:none;border:none;cursor:pointer;font-size:.85rem;opacity:.3;padding:3px 6px;border-radius:6px;transition:opacity .15s,background .15s;font-weight:700;color:#555}
     .del-btn:hover{opacity:1;background:rgba(0,0,0,.08)}
 
-    /* TASKS */
-    #section-tasks{display:none;flex-direction:column;flex:1}
-    .person-tabs{display:flex;gap:6px;padding:16px 28px 0}
-    .ptab{padding:10px 24px;border:2px solid #e0e0e0;border-bottom:none;border-radius:10px 10px 0 0;background:#f5f5f5;cursor:pointer;font-size:.92rem;font-weight:700;color:#999;transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:8px}
-    .ptab-anna.on{background:#fff0f3;border-color:#f5576c;color:#c0392b}
-    .ptab-dori.on{background:#eff8ff;border-color:#4facfe;color:#1565c0}
-    .ptab-cnt{font-size:.72rem;font-weight:800;padding:1px 7px;border-radius:10px;background:rgba(0,0,0,.1)}
+    /* ── DIVIDER ── */
+    .tasks-divider{margin:30px 28px 0;border:none;border-top:2px dashed #e0e0e0}
 
-    .tasks-panel{background:#fff;margin:0 28px 30px;border:2px solid #e0e0e0;border-radius:0 14px 14px 14px;padding:20px}
-    .task-list{display:flex;flex-direction:column;gap:10px}
+    /* ── TASKS HOME ── */
+    .tasks-home{padding:0 28px 0;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .tasks-col{background:#fff;border-radius:18px;box-shadow:0 3px 14px rgba(0,0,0,.07);overflow:hidden}
 
-    /* Task Card */
-    .tc{border-radius:14px;padding:18px 20px;border:2px solid #e5e7eb;background:#fafafa;transition:box-shadow .15s}
-    .tc:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
-    .tc.s-done {background:#f0fdf4;border-color:#86efac}
-    .tc.s-doing{background:#fffbeb;border-color:#fcd34d}
-    .tc.s-todo {background:#fff5f5;border-color:#fca5a5}
-    .tc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
-    .tc-title{font-size:1rem;font-weight:700;color:#222;word-break:break-word;flex:1}
-    .tc.s-done .tc-title{text-decoration:line-through;color:#aaa}
-    .tc-desc{font-size:.84rem;color:#666;line-height:1.5;margin-bottom:10px;white-space:pre-wrap}
-    .tc-meta{font-size:.72rem;color:#bbb;margin-bottom:14px}
+    .col-head{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between}
+    .col-head-anna{background:linear-gradient(135deg,#fff0f3,#fce4ec);border-bottom:2px solid #f8bbd0}
+    .col-head-dori{background:linear-gradient(135deg,#e3f2fd,#e1f5fe);border-bottom:2px solid #b3e5fc}
+    .col-name{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:8px}
+    .col-name-anna{color:#c0392b}
+    .col-name-dori{color:#1565c0}
+    .col-cnt{font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:10px;background:rgba(0,0,0,.08)}
+    .col-add{border:none;border-radius:8px;padding:5px 12px;font-size:.8rem;font-weight:700;cursor:pointer;color:#fff;font-family:inherit;transition:opacity .15s}
+    .col-add:hover{opacity:.85}
+    .col-add-anna{background:linear-gradient(135deg,#f093fb,#f5576c)}
+    .col-add-dori{background:linear-gradient(135deg,#4facfe,#00f2fe)}
 
-    /* Status buttons — big and clear */
-    .sbtns{display:flex;gap:8px;margin-bottom:12px}
-    .sbtn{flex:1;padding:10px 6px;border:2px solid #e0e0e0;border-radius:10px;background:#fff;cursor:pointer;font-size:.85rem;font-weight:700;color:#888;font-family:inherit;transition:all .15s;text-align:center;white-space:nowrap}
-    .sbtn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.1)}
-    .sbtn.on-todo {background:#fee2e2;border-color:#ef4444;color:#dc2626;box-shadow:0 2px 8px rgba(239,68,68,.25)}
-    .sbtn.on-doing{background:#fef3c7;border-color:#f59e0b;color:#d97706;box-shadow:0 2px 8px rgba(245,158,11,.25)}
-    .sbtn.on-done {background:#dcfce7;border-color:#22c55e;color:#16a34a;box-shadow:0 2px 8px rgba(34,197,94,.25)}
+    .col-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-height:100px}
 
-    /* Handling note */
-    .tc-note-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 13px;margin-bottom:10px;font-size:.83rem;color:#1d4ed8;line-height:1.5}
-    .tc-note-box b{display:block;font-size:.72rem;color:#3b82f6;margin-bottom:3px}
-    .tc-note-form{display:none;gap:8px;margin-bottom:10px}
-    .tc-note-form.open{display:flex}
-    .tc-note-form textarea{flex:1;min-height:60px;padding:8px 12px;border:2px solid #e0e0e0;border-radius:8px;font-size:.83rem;font-family:inherit;resize:vertical;direction:rtl;outline:none;transition:border-color .15s}
-    .tc-note-form textarea:focus{border-color:#6c63ff}
-    .tc-note-form .nc-btns{display:flex;flex-direction:column;gap:6px;justify-content:center}
-    .tc-footer{display:flex;justify-content:space-between;align-items:center}
-    .note-toggle-btn{background:none;border:1px dashed #ccc;border-radius:8px;padding:5px 13px;font-size:.78rem;color:#888;cursor:pointer;font-family:inherit;transition:all .15s}
-    .note-toggle-btn:hover{border-color:#6c63ff;color:#6c63ff;background:#f5f3ff}
+    /* ── TASK CARD ── */
+    .tc{border-radius:12px;padding:14px 16px;border:2px solid #e5e7eb;background:#fafafa;transition:all .15s}
+    .tc.done{background:#f0fdf4;border-color:#86efac;opacity:.75}
+    .tc-title{font-size:.92rem;font-weight:700;color:#222;line-height:1.4;margin-bottom:4px}
+    .tc.done .tc-title{text-decoration:line-through;color:#aaa}
+    .tc-desc{font-size:.8rem;color:#777;line-height:1.4;margin-bottom:8px;white-space:pre-wrap}
+    .tc-meta{font-size:.68rem;color:#bbb;margin-bottom:10px}
+    .tc-actions{display:flex;align-items:center;gap:8px}
+    .done-btn{flex:1;padding:8px 10px;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
+    .done-btn.todo{background:#f0fdf4;border:2px solid #86efac;color:#16a34a}
+    .done-btn.todo:hover{background:#dcfce7}
+    .done-btn.done{background:#dcfce7;border:2px solid #22c55e;color:#15803d}
+    .done-btn.undone{background:#fff5f5;border:2px solid #fca5a5;color:#dc2626}
 
-    /* EMPTY */
-    .empty{text-align:center;padding:60px 20px;color:#ccc;grid-column:1/-1}
-    .empty-icon{font-size:2.5rem;margin-bottom:12px}
-    .empty p{font-size:.95rem}
+    /* empty state */
+    .col-empty{text-align:center;padding:28px 16px;color:#ccc}
+    .col-empty-icon{font-size:1.8rem;margin-bottom:6px}
+    .col-empty p{font-size:.82rem}
 
-    /* MODALS */
+    /* ── MODALS ── */
     .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:20px}
     .overlay.open{display:flex}
     .modal{background:#fff;border-radius:18px;padding:30px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:up .2s ease;max-height:90vh;overflow-y:auto}
@@ -146,7 +136,7 @@
     .opt{font-weight:400;color:#bbb;font-size:.78rem;margin-right:4px}
     input[type=text],textarea,select{width:100%;padding:10px 13px;border:2px solid #e5e7eb;border-radius:10px;font-size:.92rem;font-family:inherit;direction:rtl;outline:none;color:#333;transition:border-color .15s;background:#fff}
     input:focus,textarea:focus,select:focus{border-color:#6c63ff}
-    textarea{resize:vertical;min-height:90px}
+    textarea{resize:vertical;min-height:80px}
     .modal-footer{display:flex;gap:10px;margin-top:22px}
 
     /* TAG SELECTOR */
@@ -169,17 +159,19 @@
     .exp-row strong{display:block;font-size:.92rem;color:#333}
     .exp-row small{font-size:.78rem;color:#999}
 
-    @media(max-width:600px){
-      header{padding:12px 16px}.main-tabs{padding:0 16px}.filter-bar{padding:12px 16px 8px}
-      .notes-area{padding:12px 16px 30px}.notes-grid{grid-template-columns:1fr}
-      .person-tabs{padding:12px 16px 0}.tasks-panel{margin:0 16px 24px}
-      .sbtns{flex-direction:column}.sbtn{padding:12px}
+    @media(max-width:640px){
+      header{padding:12px 16px}
+      .filter-bar{padding:10px 16px 8px}
+      .notes-area{padding:8px 16px 0}
+      .section-header{padding:18px 16px 0}
+      .tasks-divider{margin:24px 16px 0}
+      .tasks-home{padding:0 16px;grid-template-columns:1fr;gap:14px}
     }
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══ LOGIN ══════════════════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-box">
     <img src="logo.png" class="login-logo" alt="Project Pro"
@@ -199,8 +191,9 @@
   </div>
 </div>
 
-<!-- APP -->
+<!-- ══ APP ════════════════════════════════════════════════ -->
 <div id="app-screen">
+
   <header>
     <div class="hdr-right">
       <img src="logo.png" class="hdr-logo" alt="Project Pro"
@@ -212,54 +205,68 @@
       </div>
     </div>
     <div class="hdr-left">
-      <button id="btn-add-note" class="btn btn-primary" onclick="openAddNote()">+ פתק חדש</button>
-      <button id="btn-add-task" class="btn btn-primary" style="display:none" onclick="openAddTask()">+ משימה חדשה</button>
-      <button class="btn btn-success" onclick="openExport()">ייצוא לאקסל</button>
-      <button class="btn btn-ghost"   onclick="logout()">יציאה</button>
+      <button class="btn btn-primary"  onclick="openAddNote()">+ פתק חדש</button>
+      <button class="btn btn-success"  onclick="openExport()">ייצוא לאקסל</button>
+      <button class="btn btn-ghost"    onclick="logout()">יציאה</button>
     </div>
   </header>
 
-  <div class="main-tabs">
-    <button class="main-tab active" id="tab-notes" onclick="gotoTab('notes')">פתקים</button>
-    <button class="main-tab"        id="tab-tasks" onclick="gotoTab('tasks')">משימות</button>
-  </div>
+  <div class="main-content">
 
-  <!-- NOTES SECTION -->
-  <div id="section-notes">
+    <!-- NOTES ─────────────────────────────────── -->
+    <div class="section-header">
+      <span class="section-title">📝 פתקים <span id="notes-cnt" class="cnt"></span></span>
+    </div>
+
     <div class="filter-bar">
       <span class="filter-label">מטפל:</span>
       <button class="chip active" onclick="setNF('הכל',this)">הכל</button>
-      <button class="chip" onclick="setNF('אנה',this)">אנה</button>
-      <button class="chip" onclick="setNF('דורי',this)">דורי</button>
-      <button class="chip" onclick="setNF('אחר',this)">אחר</button>
-      <button class="chip" onclick="setNF('ללא',this)">לא שויך</button>
+      <button class="chip"        onclick="setNF('אנה',this)">אנה</button>
+      <button class="chip"        onclick="setNF('דורי',this)">דורי</button>
+      <button class="chip"        onclick="setNF('אחר',this)">אחר</button>
+      <button class="chip"        onclick="setNF('ללא',this)">לא שויך</button>
     </div>
+
     <div class="notes-area">
-      <div id="notes-count" class="section-count"></div>
       <div id="notes-grid" class="notes-grid"></div>
     </div>
-  </div>
 
-  <!-- TASKS SECTION -->
-  <div id="section-tasks">
-    <div class="person-tabs">
-      <button id="pt-anna" class="ptab ptab-anna" onclick="goPerson('אנה')">משימות אנה</button>
-      <button id="pt-dori" class="ptab ptab-dori" onclick="goPerson('דורי')">משימות דורי</button>
-    </div>
-    <div class="tasks-panel">
-      <div class="filter-bar" style="padding:0 0 14px">
-        <span class="filter-label">סטטוס:</span>
-        <button class="chip active" onclick="setSF('הכל',this)">הכל</button>
-        <button class="chip" onclick="setSF('todo',this)">לא בוצע</button>
-        <button class="chip" onclick="setSF('doing',this)">בטיפול</button>
-        <button class="chip" onclick="setSF('done',this)">טופל</button>
+    <!-- DIVIDER ────────────────────────────────── -->
+    <hr class="tasks-divider"/>
+
+    <!-- TASKS (two columns) ──────────────────── -->
+    <div class="tasks-home">
+
+      <!-- אנה -->
+      <div class="tasks-col">
+        <div class="col-head col-head-anna">
+          <span class="col-name col-name-anna">
+            📋 משימות אנה
+            <span id="cnt-anna" class="col-cnt" style="display:none"></span>
+          </span>
+          <button class="col-add col-add-anna" onclick="openAddTask('אנה')">+ הוסף</button>
+        </div>
+        <div id="tasks-anna" class="col-body"></div>
       </div>
-      <div id="task-list" class="task-list"></div>
-    </div>
-  </div>
-</div>
 
-<!-- NOTE MODAL -->
+      <!-- דורי -->
+      <div class="tasks-col">
+        <div class="col-head col-head-dori">
+          <span class="col-name col-name-dori">
+            📋 משימות דורי
+            <span id="cnt-dori" class="col-cnt" style="display:none"></span>
+          </span>
+          <button class="col-add col-add-dori" onclick="openAddTask('דורי')">+ הוסף</button>
+        </div>
+        <div id="tasks-dori" class="col-body"></div>
+      </div>
+
+    </div><!-- /tasks-home -->
+
+  </div><!-- /main-content -->
+</div><!-- /app-screen -->
+
+<!-- ══ NOTE MODAL ═════════════════════════════════════════ -->
 <div id="note-modal" class="overlay">
   <div class="modal">
     <h2>פתק חדש</h2>
@@ -303,31 +310,23 @@
   </div>
 </div>
 
-<!-- TASK MODAL -->
+<!-- ══ TASK MODAL ═════════════════════════════════════════ -->
 <div id="task-modal" class="overlay">
   <div class="modal">
-    <h2>משימה חדשה</h2>
+    <h2 id="task-modal-title">משימה חדשה</h2>
     <div class="fg">
       <label>כותרת <span style="color:#f5576c">*</span></label>
       <input type="text" id="task-title" placeholder="מה צריך לעשות?"/>
     </div>
     <div class="fg">
       <label>פרטים <span class="opt">(אופציונלי)</span></label>
-      <textarea id="task-desc" placeholder="הסבר, הערות..." style="min-height:70px"></textarea>
+      <textarea id="task-desc" placeholder="הסבר, הערות..." style="min-height:65px"></textarea>
     </div>
     <div class="fg">
       <label>שייך ל</label>
       <select id="task-assignee">
         <option value="אנה">אנה</option>
         <option value="דורי">דורי</option>
-      </select>
-    </div>
-    <div class="fg">
-      <label>סטטוס</label>
-      <select id="task-status">
-        <option value="todo">לא בוצע</option>
-        <option value="doing">בטיפול</option>
-        <option value="done">טופל</option>
       </select>
     </div>
     <div class="modal-footer">
@@ -337,7 +336,7 @@
   </div>
 </div>
 
-<!-- EXPORT MODAL -->
+<!-- ══ EXPORT MODAL ═══════════════════════════════════════ -->
 <div id="export-modal" class="overlay">
   <div class="modal">
     <h2>ייצוא לאקסל</h2>
@@ -352,13 +351,9 @@
 /* ═══════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════ */
-let CU = null;          // currentUser
-let MAIN = 'notes';
-let NF   = 'הכל';       // note filter
-let PT   = 'אנה';       // person tab
-let SF   = 'הכל';       // status filter
+let CU = null;
+let NF = 'הכל';
 
-const SL = {todo:'לא בוצע', doing:'בטיפול', done:'טופל'};
 const COLORS = ['nc-0','nc-1','nc-2','nc-3','nc-4','nc-5'];
 const TLABEL = {salary:'שכר', logistics:'לוגיסטיקה', sick:'מחלה', vacation:'חופש'};
 const TCLS   = {salary:'t-salary', logistics:'t-logistics', sick:'t-sick', vacation:'t-vacation'};
@@ -382,79 +377,24 @@ async function api(method, path, body) {
 function login(user) {
   CU = user;
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app-screen').style.display = 'flex';
+  document.getElementById('app-screen').style.display   = 'flex';
   const b = document.getElementById('user-badge');
   b.innerHTML = `<span class="badge-dot"></span>${user}`;
   b.className = 'user-badge ' + (user==='אנה' ? 'badge-anna' : 'badge-dori');
-  loadNotes();
+  loadAll();
 }
 
 function logout() {
   CU = null;
-  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('app-screen').style.display   = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  showTab('notes');
 }
 
 /* ═══════════════════════════════════════════════════
-   TAB NAVIGATION
+   LOAD ALL
 ═══════════════════════════════════════════════════ */
-function showTab(tab) {
-  MAIN = tab;
-  document.getElementById('tab-notes').classList.toggle('active', tab==='notes');
-  document.getElementById('tab-tasks').classList.toggle('active', tab==='tasks');
-  document.getElementById('section-notes').style.display = tab==='notes' ? 'block' : 'none';
-  document.getElementById('section-tasks').style.display = tab==='tasks' ? 'flex'  : 'none';
-  document.getElementById('btn-add-note').style.display  = tab==='notes' ? ''      : 'none';
-  document.getElementById('btn-add-task').style.display  = tab==='tasks' ? ''      : 'none';
-}
-
-// Navigate to notes tab and load
-function gotoTab(tab) {
-  showTab(tab);
-  if (tab==='tasks') loadTasks();
-}
-
-// Navigate to a specific person's tasks
-async function gotoPersonTasks(person) {
-  PT = person;
-  showTab('tasks');
-  await loadTasks();
-}
-
-function goPerson(person) {
-  PT = person;
-  refreshPersonTabs();
-  renderTasks(window._TC || []);
-}
-
-function refreshPersonTabs() {
-  const all = window._TC || [];
-  const ac = all.filter(t=>t.assignee==='אנה').length;
-  const dc = all.filter(t=>t.assignee==='דורי').length;
-  const pa = document.getElementById('pt-anna');
-  const pd = document.getElementById('pt-dori');
-  pa.className = 'ptab ptab-anna' + (PT==='אנה' ? ' on' : '');
-  pd.className = 'ptab ptab-dori' + (PT==='דורי' ? ' on' : '');
-  pa.innerHTML = `משימות אנה${ac ? ` <span class="ptab-cnt">${ac}</span>` : ''}`;
-  pd.innerHTML = `משימות דורי${dc ? ` <span class="ptab-cnt">${dc}</span>` : ''}`;
-}
-
-/* ═══════════════════════════════════════════════════
-   FILTERS
-═══════════════════════════════════════════════════ */
-function setNF(f, btn) {
-  NF = f;
-  document.querySelectorAll('#section-notes .chip').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderNotes(window._NC || []);
-}
-
-function setSF(f, btn) {
-  SF = f;
-  document.querySelectorAll('#section-tasks .chip').forEach(b=>b.className='chip');
-  btn.classList.add(f==='הכל'?'active':f==='todo'?'active-todo':f==='doing'?'active-doing':'active-done');
-  renderTasks(window._TC || []);
+async function loadAll() {
+  await Promise.all([loadNotes(), loadTasks()]);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -462,40 +402,50 @@ function setSF(f, btn) {
 ═══════════════════════════════════════════════════ */
 async function loadNotes() {
   try {
-    window._NC = await api('GET','/api/notes');
+    window._NC = await api('GET', '/api/notes');
     renderNotes(window._NC);
-  } catch(e) { console.error('loadNotes',e); }
+  } catch(e) { console.error('loadNotes', e); }
+}
+
+function setNF(f, btn) {
+  NF = f;
+  document.querySelectorAll('.filter-bar .chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNotes(window._NC || []);
 }
 
 function renderNotes(notes) {
   let list = [...notes];
-  if      (NF==='אנה')  list = list.filter(n=>n.responsible==='אנה');
-  else if (NF==='דורי') list = list.filter(n=>n.responsible==='דורי');
-  else if (NF==='אחר')  list = list.filter(n=>n.responsible==='אחר');
-  else if (NF==='ללא')  list = list.filter(n=>!n.responsible);
+  if      (NF === 'אנה')  list = list.filter(n => n.responsible === 'אנה');
+  else if (NF === 'דורי') list = list.filter(n => n.responsible === 'דורי');
+  else if (NF === 'אחר')  list = list.filter(n => n.responsible === 'אחר');
+  else if (NF === 'ללא')  list = list.filter(n => !n.responsible);
   list.reverse();
 
-  const grid = document.getElementById('notes-grid');
-  document.getElementById('notes-count').textContent = list.length ? `${list.length} פתקים` : '';
+  const cnt = document.getElementById('notes-cnt');
+  cnt.textContent = list.length ? `(${list.length})` : '';
 
+  const grid = document.getElementById('notes-grid');
   if (!list.length) {
-    grid.innerHTML=`<div class="empty"><div class="empty-icon">🗒</div><p>אין פתקים. לחץ "פתק חדש"!</p></div>`;
+    grid.innerHTML = `<div style="color:#ccc;font-size:.9rem;padding:20px 0">אין פתקים. לחץ "+ פתק חדש" להוספה.</div>`;
     return;
   }
 
   grid.innerHTML = list.map(n => {
-    const cc  = COLORS[n.colorIdx%6];
-    const rdn = n.responsible==='אחר' && n.customResp ? n.customResp : n.responsible;
-    const rtag = n.responsible==='אנה' ? `<span class="resp-tag r-anna">מטפל: אנה</span>`
-      : n.responsible==='דורי' ? `<span class="resp-tag r-dori">מטפל: דורי</span>`
-      : n.responsible==='אחר'  ? `<span class="resp-tag r-other">מטפל: ${esc(rdn)}</span>`
-      :                           `<span class="resp-tag r-none">לא שויך</span>`;
-    const tags = (n.tags||[]).map(t=>`<span class="ntag ${t.type==='custom'?'t-custom':TCLS[t.type]||'t-custom'}">${esc(t.label)}</span>`).join('');
+    const cc  = COLORS[n.colorIdx % 6];
+    const rdn = n.responsible === 'אחר' && n.customResp ? n.customResp : n.responsible;
+    const rtag = n.responsible === 'אנה'  ? `<span class="resp-tag r-anna">מטפל: אנה</span>`
+               : n.responsible === 'דורי' ? `<span class="resp-tag r-dori">מטפל: דורי</span>`
+               : n.responsible === 'אחר'  ? `<span class="resp-tag r-other">מטפל: ${esc(rdn)}</span>`
+               :                            `<span class="resp-tag r-none">לא שויך</span>`;
+    const tags = (n.tags||[]).map(t =>
+      `<span class="ntag ${t.type==='custom'?'t-custom':TCLS[t.type]||'t-custom'}">${esc(t.label)}</span>`
+    ).join('');
     return `
       <div class="note-card ${cc}">
         <div class="note-top">${rtag}<span class="note-author">נוסף ע"י ${esc(n.author)}</span></div>
         ${n.worker ? `<div class="note-worker">עובד: ${esc(n.worker)}</div>` : ''}
-        ${tags ? `<div class="note-tags">${tags}</div>` : ''}
+        ${tags     ? `<div class="note-tags">${tags}</div>` : ''}
         <div class="note-text">${esc(n.text)}</div>
         <div class="note-footer">
           <span class="note-date">${fmt(n.created)}</span>
@@ -510,95 +460,66 @@ function renderNotes(notes) {
 ═══════════════════════════════════════════════════ */
 async function loadTasks() {
   try {
-    window._TC = await api('GET','/api/tasks');
-    refreshPersonTabs();
+    window._TC = await api('GET', '/api/tasks');
     renderTasks(window._TC);
-  } catch(e) { console.error('loadTasks',e); }
+  } catch(e) { console.error('loadTasks', e); }
 }
 
 function renderTasks(tasks) {
-  let list = tasks.filter(t=>t.assignee===PT);
-  if (SF!=='הכל') list = list.filter(t=>t.status===SF);
-  list = [...list].reverse();
+  renderCol('אנה', tasks, 'tasks-anna', 'cnt-anna');
+  renderCol('דורי', tasks, 'tasks-dori', 'cnt-dori');
+}
 
-  const el = document.getElementById('task-list');
+function renderCol(person, tasks, colId, cntId) {
+  // show active (todo) first, done at bottom
+  const mine  = tasks.filter(t => t.assignee === person);
+  const active = mine.filter(t => t.status !== 'done').reverse();
+  const done   = mine.filter(t => t.status === 'done').reverse();
+  const list   = [...active, ...done];
+
+  // count badge — only non-done
+  const cntEl = document.getElementById(cntId);
+  if (active.length) {
+    cntEl.textContent = active.length;
+    cntEl.style.display = '';
+  } else {
+    cntEl.style.display = 'none';
+  }
+
+  const el = document.getElementById(colId);
   if (!list.length) {
-    el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><p>אין משימות עבור ${esc(PT)}.<br>לחץ "+ משימה חדשה" כדי להוסיף!</p></div>`;
+    el.innerHTML = `<div class="col-empty"><div class="col-empty-icon">✅</div><p>אין משימות</p></div>`;
     return;
   }
 
   el.innerHTML = list.map(t => {
-    const desc = t.desc ? `<div class="tc-desc">${esc(t.desc)}</div>` : '';
-    const note = t.handlingNote
-      ? `<div class="tc-note-box"><b>הערת טיפול</b>${esc(t.handlingNote)}</div>` : '';
+    const isDone = t.status === 'done';
     return `
-      <div class="tc s-${t.status}" id="tc-${t.id}">
-        <div class="tc-top">
-          <div class="tc-title">${esc(t.title)}</div>
-          <button class="del-btn" onclick="deleteTask('${t.id}')">✕</button>
-        </div>
-        ${desc}
+      <div class="tc ${isDone ? 'done' : ''}" id="tc-${t.id}">
+        <div class="tc-title">${esc(t.title)}</div>
+        ${t.desc ? `<div class="tc-desc">${esc(t.desc)}</div>` : ''}
         <div class="tc-meta">נוסף ע"י ${esc(t.createdBy)} · ${fmt(t.created)}</div>
-
-        <div class="sbtns">
-          <button class="sbtn ${t.status==='todo' ?'on-todo' :''}" onclick="setStatus('${t.id}','todo')">
-            ❌ לא בוצע
-          </button>
-          <button class="sbtn ${t.status==='doing'?'on-doing':''}" onclick="setStatus('${t.id}','doing')">
-            ⏳ בטיפול
-          </button>
-          <button class="sbtn ${t.status==='done' ?'on-done' :''}" onclick="setStatus('${t.id}','done')">
-            ✅ טופל
-          </button>
-        </div>
-
-        ${note}
-        <div class="tc-note-form" id="nf-${t.id}">
-          <textarea id="hn-${t.id}" placeholder="כתוב הערה על הטיפול..."></textarea>
-          <div class="nc-btns">
-            <button class="btn btn-primary btn-sm" onclick="saveNote2('${t.id}')">שמור</button>
-            <button class="btn btn-ghost   btn-sm" onclick="closeNote2('${t.id}')">ביטול</button>
-          </div>
-        </div>
-        <div class="tc-footer">
-          <button class="note-toggle-btn" onclick="openNote2('${t.id}','${(t.handlingNote||'').replace(/'/g,"\\'")}')">
-            ${t.handlingNote ? '✏ ערוך הערה' : '+ הוסף הערה'}
-          </button>
+        <div class="tc-actions">
+          ${isDone
+            ? `<button class="done-btn undone" onclick="setDone('${t.id}', false)">↩ בטל טיפול</button>`
+            : `<button class="done-btn todo"   onclick="setDone('${t.id}', true)">✅ טופל</button>`
+          }
+          <button class="del-btn" onclick="deleteTask('${t.id}')">✕</button>
         </div>
       </div>`;
   }).join('');
 }
 
-/* ═══════════════════════════════════════════════════
-   TASK ACTIONS
-═══════════════════════════════════════════════════ */
-async function setStatus(id, status) {
+async function setDone(id, done) {
   try {
-    await api('PATCH',`/api/tasks/${id}`,{status});
-    const t = (window._TC||[]).find(x=>x.id===id);
-    if (t) { t.status = status; renderTasks(window._TC); }
-  } catch(e) { alert('שגיאה בעדכון סטטוס'); }
-}
-
-function openNote2(id, existing) {
-  const form = document.getElementById('nf-'+id);
-  const ta   = document.getElementById('hn-'+id);
-  ta.value   = existing;
-  form.classList.add('open');
-  ta.focus();
-}
-function closeNote2(id) { document.getElementById('nf-'+id).classList.remove('open'); }
-async function saveNote2(id) {
-  const note = document.getElementById('hn-'+id).value.trim();
-  try {
-    await api('PATCH',`/api/tasks/${id}`,{handlingNote:note});
-    const t = (window._TC||[]).find(x=>x.id===id);
-    if (t) { t.handlingNote = note; renderTasks(window._TC); }
-  } catch(e) { alert('שגיאה בשמירת הערה'); }
+    await api('PATCH', `/api/tasks/${id}`, { status: done ? 'done' : 'todo' });
+    const t = (window._TC || []).find(x => x.id === id);
+    if (t) { t.status = done ? 'done' : 'todo'; renderTasks(window._TC); }
+  } catch(e) { alert('שגיאה בעדכון'); }
 }
 
 /* ═══════════════════════════════════════════════════
-   ADD / SAVE NOTE
+   ADD NOTE
 ═══════════════════════════════════════════════════ */
 function openAddNote() {
   document.getElementById('note-resp').value   = '';
@@ -608,7 +529,7 @@ function openAddNote() {
   document.getElementById('cr-wrap').style.display = 'none';
   resetTags();
   document.getElementById('note-modal').classList.add('open');
-  setTimeout(()=>document.getElementById('note-text').focus(),80);
+  setTimeout(() => document.getElementById('note-text').focus(), 80);
 }
 
 async function saveNote() {
@@ -619,8 +540,8 @@ async function saveNote() {
   const worker      = document.getElementById('note-worker').value.trim();
   const tags        = getSelectedTags();
   try {
-    const note = await api('POST','/api/notes',{text,responsible,customResp,worker,tags,author:CU});
-    window._NC = window._NC||[];
+    const note = await api('POST', '/api/notes', {text, responsible, customResp, worker, tags, author: CU});
+    window._NC = window._NC || [];
     window._NC.push(note);
     renderNotes(window._NC);
     closeModal('note-modal');
@@ -628,15 +549,15 @@ async function saveNote() {
 }
 
 /* ═══════════════════════════════════════════════════
-   ADD / SAVE TASK
+   ADD TASK
 ═══════════════════════════════════════════════════ */
-function openAddTask() {
+function openAddTask(person) {
+  document.getElementById('task-modal-title').textContent = `משימה חדשה — ${person}`;
   document.getElementById('task-title').value    = '';
   document.getElementById('task-desc').value     = '';
-  document.getElementById('task-assignee').value = PT;
-  document.getElementById('task-status').value   = 'todo';
+  document.getElementById('task-assignee').value = person;
   document.getElementById('task-modal').classList.add('open');
-  setTimeout(()=>document.getElementById('task-title').focus(),80);
+  setTimeout(() => document.getElementById('task-title').focus(), 80);
 }
 
 async function saveTask() {
@@ -644,24 +565,12 @@ async function saveTask() {
   if (!title) { shake('task-title'); return; }
   const desc     = document.getElementById('task-desc').value.trim();
   const assignee = document.getElementById('task-assignee').value;
-  const status   = document.getElementById('task-status').value;
-
   try {
-    // 1. Save to server
-    const task = await api('POST','/api/tasks',{title,desc,assignee,status,createdBy:CU});
-
-    // 2. Close modal
+    const task = await api('POST', '/api/tasks', {title, desc, assignee, status: 'todo', createdBy: CU});
+    window._TC = window._TC || [];
+    window._TC.push(task);
+    renderTasks(window._TC);
     closeModal('task-modal');
-
-    // 3. Set the person tab to the assignee
-    PT = assignee;
-
-    // 4. Switch to tasks tab (without triggering loadTasks)
-    showTab('tasks');
-
-    // 5. Reload fresh data from server and render
-    await loadTasks();
-
   } catch(e) { alert('שגיאה בשמירת משימה'); }
 }
 
@@ -671,17 +580,17 @@ async function saveTask() {
 async function deleteNote(id) {
   if (!confirm('למחוק את הפתק?')) return;
   try {
-    await api('DELETE',`/api/notes/${id}`);
-    window._NC = (window._NC||[]).filter(n=>n.id!==id);
+    await api('DELETE', `/api/notes/${id}`);
+    window._NC = (window._NC || []).filter(n => n.id !== id);
     renderNotes(window._NC);
   } catch(e) { alert('שגיאה במחיקה'); }
 }
+
 async function deleteTask(id) {
   if (!confirm('למחוק את המשימה?')) return;
   try {
-    await api('DELETE',`/api/tasks/${id}`);
-    window._TC = (window._TC||[]).filter(t=>t.id!==id);
-    refreshPersonTabs();
+    await api('DELETE', `/api/tasks/${id}`);
+    window._TC = (window._TC || []).filter(t => t.id !== id);
     renderTasks(window._TC);
   } catch(e) { alert('שגיאה במחיקה'); }
 }
@@ -691,86 +600,89 @@ async function deleteTask(id) {
 ═══════════════════════════════════════════════════ */
 function toggleTag(btn) {
   const tag = btn.dataset.tag;
-  const cls = 'on-'+tag;
+  const cls = 'on-' + tag;
   btn.classList.toggle(cls);
-  if (tag==='custom')
+  if (tag === 'custom')
     document.getElementById('ct-wrap').classList.toggle('show', btn.classList.contains(cls));
 }
 function getSelectedTags() {
   const tags = [];
-  document.querySelectorAll('.ttog').forEach(btn=>{
+  document.querySelectorAll('.ttog').forEach(btn => {
     const tag = btn.dataset.tag;
-    if (btn.classList.contains('on-'+tag)) {
-      if (tag==='custom') {
+    if (btn.classList.contains('on-' + tag)) {
+      if (tag === 'custom') {
         const v = document.getElementById('ct-text').value.trim();
-        if (v) tags.push({type:'custom',label:v});
-      } else tags.push({type:tag,label:TLABEL[tag]});
+        if (v) tags.push({type:'custom', label:v});
+      } else tags.push({type:tag, label:TLABEL[tag]});
     }
   });
   return tags;
 }
 function resetTags() {
-  document.querySelectorAll('.ttog').forEach(b=>b.className='ttog');
+  document.querySelectorAll('.ttog').forEach(b => b.className = 'ttog');
   document.getElementById('ct-wrap').classList.remove('show');
-  document.getElementById('ct-text').value='';
+  document.getElementById('ct-text').value = '';
 }
 function toggleCR(val) {
-  document.getElementById('cr-wrap').style.display = val==='אחר' ? 'block' : 'none';
-  if (val!=='אחר') document.getElementById('note-cr').value='';
+  document.getElementById('cr-wrap').style.display = val === 'אחר' ? 'block' : 'none';
+  if (val !== 'אחר') document.getElementById('note-cr').value = '';
 }
 
 /* ═══════════════════════════════════════════════════
    EXPORT
 ═══════════════════════════════════════════════════ */
 function openExport() {
-  const N = window._NC||[], T = window._TC||[];
-  document.getElementById('exp-list').innerHTML=`
-    <div class="exp-row" onclick="expN('הכל')"><span class="ei">📝</span><div><strong>כל הפתקים (${N.length})</strong><small>גיליון אחד</small></div></div>
-    <div class="exp-row" onclick="expN('אנה')"><span class="ei">📋</span><div><strong>פתקים — מטפל אנה (${N.filter(n=>n.responsible==='אנה').length})</strong><small></small></div></div>
-    <div class="exp-row" onclick="expN('דורי')"><span class="ei">📋</span><div><strong>פתקים — מטפל דורי (${N.filter(n=>n.responsible==='דורי').length})</strong><small></small></div></div>
-    <div class="exp-row" onclick="expT('הכל')"><span class="ei">✅</span><div><strong>כל המשימות (${T.length})</strong><small>גיליון אחד</small></div></div>
-    <div class="exp-row" onclick="expT('אנה')"><span class="ei">📌</span><div><strong>משימות אנה (${T.filter(t=>t.assignee==='אנה').length})</strong><small></small></div></div>
-    <div class="exp-row" onclick="expT('דורי')"><span class="ei">📌</span><div><strong>משימות דורי (${T.filter(t=>t.assignee==='דורי').length})</strong><small></small></div></div>
-    <div class="exp-row" onclick="expAll()"><span class="ei">📊</span><div><strong>ייצוא מלא</strong><small>פתקים + משימות, גיליונות נפרדים</small></div></div>`;
+  const N = window._NC || [], T = window._TC || [];
+  document.getElementById('exp-list').innerHTML = `
+    <div class="exp-row" onclick="expN('הכל')"><span class="ei">📝</span><div><strong>כל הפתקים (${N.length})</strong><small>כל הפתקים</small></div></div>
+    <div class="exp-row" onclick="expN('אנה')"><span class="ei">📋</span><div><strong>פתקים — מטפל אנה (${N.filter(n=>n.responsible==='אנה').length})</strong></div></div>
+    <div class="exp-row" onclick="expN('דורי')"><span class="ei">📋</span><div><strong>פתקים — מטפל דורי (${N.filter(n=>n.responsible==='דורי').length})</strong></div></div>
+    <div class="exp-row" onclick="expT('הכל')"><span class="ei">✅</span><div><strong>כל המשימות (${T.length})</strong></div></div>
+    <div class="exp-row" onclick="expT('אנה')"><span class="ei">📌</span><div><strong>משימות אנה (${T.filter(t=>t.assignee==='אנה').length})</strong></div></div>
+    <div class="exp-row" onclick="expT('דורי')"><span class="ei">📌</span><div><strong>משימות דורי (${T.filter(t=>t.assignee==='דורי').length})</strong></div></div>
+    <div class="exp-row" onclick="expAll()"><span class="ei">📊</span><div><strong>ייצוא מלא</strong><small>פתקים + משימות</small></div></div>`;
   document.getElementById('export-modal').classList.add('open');
 }
 
+const SL = {todo:'לא בוצע', doing:'בטיפול', done:'טופל'};
 function expN(f) {
-  let N = window._NC||[];
-  if (f!=='הכל') N = N.filter(n=>n.responsible===f);
-  xlDl([{name:'פתקים',data:N.map(n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)}))}],`פתקים_${f}.xlsx`);
+  let N = window._NC || [];
+  if (f !== 'הכל') N = N.filter(n => n.responsible === f);
+  xlDl([{name:'פתקים', data:N.map(n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)}))}], `פתקים_${f}.xlsx`);
   closeModal('export-modal');
 }
 function expT(f) {
-  let T = window._TC||[];
-  if (f!=='הכל') T = T.filter(t=>t.assignee===f);
-  xlDl([{name:'משימות',data:T.map(t=>({'שייך ל':t.assignee,'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status],'הערת טיפול':t.handlingNote||'','נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)}))}],`משימות_${f}.xlsx`);
+  let T = window._TC || [];
+  if (f !== 'הכל') T = T.filter(t => t.assignee === f);
+  xlDl([{name:'משימות', data:T.map(t=>({'שייך ל':t.assignee,'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status]||t.status,'נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)}))}], `משימות_${f}.xlsx`);
   closeModal('export-modal');
 }
 function expAll() {
-  const N=window._NC||[], T=window._TC||[];
-  const nr=n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)});
-  const tr=t=>({'שייך ל':t.assignee,'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status],'הערת טיפול':t.handlingNote||'','נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)});
-  xlDl([{name:'פתקים',data:N.map(nr)},{name:'משימות',data:T.map(tr)},{name:'משימות אנה',data:T.filter(t=>t.assignee==='אנה').map(tr)},{name:'משימות דורי',data:T.filter(t=>t.assignee==='דורי').map(tr)}],'ייצוא_מלא.xlsx');
+  const N = window._NC||[], T = window._TC||[];
+  xlDl([
+    {name:'פתקים',       data:N.map(n=>({'מי מטפל':n.responsible==='אחר'&&n.customResp?n.customResp:(n.responsible||'—'),'שם עובד':n.worker||'','תיוגים':(n.tags||[]).map(t=>t.label).join(', '),'תוכן':n.text,'נוסף ע"י':n.author,'תאריך':fmt(n.created)}))},
+    {name:'משימות אנה',  data:T.filter(t=>t.assignee==='אנה').map(t=>({'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status]||t.status,'נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)}))},
+    {name:'משימות דורי', data:T.filter(t=>t.assignee==='דורי').map(t=>({'כותרת':t.title,'פרטים':t.desc||'','סטטוס':SL[t.status]||t.status,'נוסף ע"י':t.createdBy,'תאריך':fmt(t.created)}))}
+  ], 'ייצוא_מלא.xlsx');
   closeModal('export-modal');
 }
 function xlDl(sheets, fn) {
-  const wb=XLSX.utils.book_new();
-  sheets.forEach(s=>{if(s.data.length) XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s.data),s.name);});
-  XLSX.writeFile(wb,fn);
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(s => { if (s.data.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s.data), s.name); });
+  XLSX.writeFile(wb, fn);
 }
 
 /* ═══════════════════════════════════════════════════
    UTILS
 ═══════════════════════════════════════════════════ */
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function fmt(iso){return new Date(iso).toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
-function shake(id){const el=document.getElementById(id);el.style.borderColor='#f5576c';el.focus();setTimeout(()=>el.style.borderColor='',1500)}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmt(iso) { return new Date(iso).toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function shake(id) { const el=document.getElementById(id); el.style.borderColor='#f5576c'; el.focus(); setTimeout(()=>el.style.borderColor='',1500); }
 
-document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
-document.getElementById('note-text').addEventListener('keydown', e=>{if(e.ctrlKey&&e.key==='Enter')saveNote()});
-document.getElementById('task-title').addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')saveTask()});
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target===o) o.classList.remove('open'); }));
+document.getElementById('note-text').addEventListener('keydown',  e => { if (e.ctrlKey && e.key==='Enter') saveNote(); });
+document.getElementById('task-title').addEventListener('keydown', e => { if (e.ctrlKey && e.key==='Enter') saveTask(); });
 </script>
 </body>
 </html>
